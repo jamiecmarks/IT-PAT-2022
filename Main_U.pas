@@ -4,10 +4,11 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls;
+  Dialogs, StdCtrls, Splash_U;
 
 type
   TfrmMain = class(TForm)
+    procedure FormShow(Sender: TObject);
   private
     { Private declarations }
   public
@@ -20,5 +21,10 @@ var
 implementation
 
 {$R *.dfm}
+
+procedure TfrmMain.FormShow(Sender: TObject);
+begin
+frmsplash.showmodal;
+end;
 
 end.

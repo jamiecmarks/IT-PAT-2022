@@ -43,8 +43,11 @@
 			<DelphiCompile Include="Main_P.dpr">
 				<MainSource>MainSource</MainSource>
 			</DelphiCompile>
+			<DCCReference Include="Main_U.pas">
+				<Form>frmMain</Form>
+			</DCCReference>
 			<DCCReference Include="Splash_U.pas">
-				<Form>Form1</Form>
+				<Form>frmSplash</Form>
 			</DCCReference>
 			<BuildConfiguration Include="Base">
 				<Key>Base</Key>

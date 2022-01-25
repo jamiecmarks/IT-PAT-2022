@@ -2,13 +2,15 @@ program Main_P;
 
 uses
   Forms,
-  Splash_U in 'Splash_U.pas' {Form1};
+  Main_U in 'Main_U.pas' {frmMain},
+  Splash_U in 'Splash_U.pas' {frmSplash};
 
 {$R *.res}
 
 begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
-  Application.CreateForm(TForm1, Form1);
+  Application.CreateForm(TfrmMain, frmMain);
+  Application.CreateForm(TfrmSplash, frmSplash);
   Application.Run;
 end.
