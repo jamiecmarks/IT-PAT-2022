@@ -11,7 +11,6 @@ object frmMain: TfrmMain
   Font.Height = -11
   Font.Name = 'Tahoma'
   Font.Style = []
-  Menu = menMain
   OldCreateOrder = False
   Position = poScreenCenter
   OnShow = FormShow
@@ -80,19 +79,5 @@ object frmMain: TfrmMain
     TabOrder = 3
     OnMouseEnter = btnAdminMouseEnter
     OnMouseLeave = btnAdminMouseLeave
-  end
-  object menMain: TMainMenu
-    Left = 272
-    Top = 160
-    object OurStory1: TMenuItem
-      Caption = 'Our Story'
-      OnClick = OurStory1Click
-    end
-    object Resourcecentre1: TMenuItem
-      Caption = 'Resource centre'
-    end
-    object Help1: TMenuItem
-      Caption = 'Help'
-    end
   end
 end

@@ -4,7 +4,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, Splash_U, ExtCtrls, shellapi, Menus;
+  Dialogs, StdCtrls, Splash_U, ExtCtrls;
 
 type
   TfrmMain = class(TForm)
@@ -12,10 +12,6 @@ type
     btnLearner: TButton;
     btnTeacher: TButton;
     btnAdmin: TButton;
-    menMain: TMainMenu;
-    OurStory1: TMenuItem;
-    Resourcecentre1: TMenuItem;
-    Help1: TMenuItem;
     procedure FormShow(Sender: TObject);
     procedure btnLearnerMouseEnter(Sender: TObject);
     procedure btnLearnerMouseLeave(Sender: TObject);
@@ -23,7 +19,6 @@ type
     procedure btnTeacherMouseLeave(Sender: TObject);
     procedure btnAdminMouseEnter(Sender: TObject);
     procedure btnAdminMouseLeave(Sender: TObject);
-    procedure OurStory1Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -40,7 +35,7 @@ implementation
 procedure TfrmMain.btnAdminMouseEnter(Sender: TObject);
 begin
   btnAdmin.font.Size := 12;
-  pnlIntro.Color := clMoneyGreen;
+  pnlIntro.Color := clBlue;
 end;
 
 procedure TfrmMain.btnAdminMouseLeave(Sender: TObject);
@@ -52,7 +47,7 @@ end;
 procedure TfrmMain.btnLearnerMouseEnter(Sender: TObject);
 begin
   btnLearner.font.Size := 12;
-  pnlIntro.Color := clBlue;
+   pnlIntro.Color := clOlive;
 
 end;
 
@@ -79,12 +74,6 @@ procedure TfrmMain.FormShow(Sender: TObject);
 begin
   frmsplash.showmodal;
 
-
-end;
-
-procedure TfrmMain.OurStory1Click(Sender: TObject);
-begin
-     ShellExecute(0, nil, PChar('ourstory.html'), nil, nil, SW_SHOWNORMAL);
 end;
 
 end.
