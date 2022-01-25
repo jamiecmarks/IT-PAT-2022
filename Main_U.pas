@@ -16,6 +16,7 @@ type
     OurStory1: TMenuItem;
     Resourcecentre1: TMenuItem;
     Help1: TMenuItem;
+    Ourgithub1: TMenuItem;
     procedure FormShow(Sender: TObject);
     procedure btnLearnerMouseEnter(Sender: TObject);
     procedure btnLearnerMouseLeave(Sender: TObject);
@@ -24,6 +25,7 @@ type
     procedure btnAdminMouseEnter(Sender: TObject);
     procedure btnAdminMouseLeave(Sender: TObject);
     procedure OurStory1Click(Sender: TObject);
+    procedure Ourgithub1Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -80,6 +82,11 @@ begin
   frmsplash.showmodal;
 
 
+end;
+
+procedure TfrmMain.Ourgithub1Click(Sender: TObject);
+begin
+     ShellExecute(0, nil, PChar('https://github.com/jamiecmarks/IT-PAT-2022'), nil, nil, SW_SHOWNORMAL);
 end;
 
 procedure TfrmMain.OurStory1Click(Sender: TObject);

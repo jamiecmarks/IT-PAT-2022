@@ -94,5 +94,9 @@ object frmMain: TfrmMain
     object Help1: TMenuItem
       Caption = 'Help'
     end
+    object Ourgithub1: TMenuItem
+      Caption = 'Our github'
+      OnClick = Ourgithub1Click
+    end
   end
 end
