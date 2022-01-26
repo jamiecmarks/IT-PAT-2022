@@ -67,6 +67,7 @@ implementation
 
 procedure TfrmMain.btnCancelClick(Sender: TObject);
 begin
+  // going back to the main home page
   edtUsername.Visible := False;
   edtPassword.Visible := False;
   lblUsername.Visible := False;
@@ -97,6 +98,7 @@ end;
 
 procedure TfrmMain.btnLearnerClick(Sender: TObject);
 begin
+  // showing the appropriate components for login as a student
   btnLearner.Hide;
   edtUsername.Show;
   edtPassword.Show;
@@ -126,6 +128,7 @@ end;
 
 procedure TfrmMain.btnRegClick(Sender: TObject);
 begin
+  // showing and hidint appropriate components for registering a new account
   btnLogin.Enabled := False;
   MessageDlg(
     'Please fill out the rest of your information and press the "register button" once you have done that', mtWarning, [mbOK], 0);
@@ -136,7 +139,8 @@ end;
 
 procedure TfrmMain.btnTCancelClick(Sender: TObject);
 begin
- edtTUsername.Visible := False;
+  // remove the log in components
+  edtTUsername.Visible := False;
   edtTPassword.Visible := False;
   lblTUsername.Visible := False;
   lblTPassword.Visible := False;
@@ -179,6 +183,7 @@ end;
 
 procedure TfrmMain.btnTLoginClick(Sender: TObject);
 begin
+  // showing and hidint appropriate components for registering a new account
   btnTLogin.Enabled := False;
   MessageDlg(
     'Please fill out the rest of your information and press the "register button" once you have done that', mtWarning, [mbOK], 0);
