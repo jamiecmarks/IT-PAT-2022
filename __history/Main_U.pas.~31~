@@ -4,7 +4,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, Splash_U, ExtCtrls, shellapi, Menus, Buttons, dbAdmin_u;
+  Dialogs, StdCtrls, Splash_U, ExtCtrls, shellapi, Menus, Buttons;
 
 type
   TfrmMain = class(TForm)
@@ -52,7 +52,6 @@ type
     procedure btnTLoginClick(Sender: TObject);
     procedure btnTCancelClick(Sender: TObject);
     procedure btnTeacherClick(Sender: TObject);
-    procedure btnAdminClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -81,11 +80,6 @@ begin
   rgpGender.Visible := False;
   edtName.Hide;
   edtSurname.Hide;
-end;
-
-procedure TfrmMain.btnAdminClick(Sender: TObject);
-begin
-  frmDBAdmin.Show;
 end;
 
 procedure TfrmMain.btnAdminMouseEnter(Sender: TObject);

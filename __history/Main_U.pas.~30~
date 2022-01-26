@@ -4,7 +4,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, Splash_U, ExtCtrls, shellapi, Menus;
+  Dialogs, StdCtrls, Splash_U, ExtCtrls, shellapi, Menus, Buttons;
 
 type
   TfrmMain = class(TForm)
@@ -24,6 +24,19 @@ type
     lblPassword: TLabel;
     btnReg: TButton;
     btnLogin: TButton;
+    btnCancel: TBitBtn;
+    rgpGender: TRadioGroup;
+    edtName: TEdit;
+    edtSurname: TEdit;
+    edtTPassword: TEdit;
+    btnTLogin: TButton;
+    edtTSurname: TEdit;
+    edtTUsername: TEdit;
+    edtTName: TEdit;
+    lblTUsername: TLabel;
+    lblTPassword: TLabel;
+    btnTReg: TButton;
+    btnTCancel: TBitBtn;
     procedure FormShow(Sender: TObject);
     procedure btnLearnerMouseEnter(Sender: TObject);
     procedure btnLearnerMouseLeave(Sender: TObject);
@@ -34,6 +47,11 @@ type
     procedure OurStory1Click(Sender: TObject);
     procedure Ourgithub1Click(Sender: TObject);
     procedure btnLearnerClick(Sender: TObject);
+    procedure btnCancelClick(Sender: TObject);
+    procedure btnRegClick(Sender: TObject);
+    procedure btnTLoginClick(Sender: TObject);
+    procedure btnTCancelClick(Sender: TObject);
+    procedure btnTeacherClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -47,11 +65,27 @@ implementation
 
 {$R *.dfm}
 
+procedure TfrmMain.btnCancelClick(Sender: TObject);
+begin
+  edtUsername.Visible := False;
+  edtPassword.Visible := False;
+  lblUsername.Visible := False;
+  lblPassword.Visible := False;
+  btnLearner.Show;
+  btnReg.Visible := False;
+  btnLogin.Visible := False;
+  btnCancel.Hide;
+  btnLogin.Enabled := True;
+  rgpGender.Visible := False;
+  edtName.Hide;
+  edtSurname.Hide;
+end;
+
 procedure TfrmMain.btnAdminMouseEnter(Sender: TObject);
 begin
   btnAdmin.font.Size := 12;
   pnlIntro.Color := clMoneyGreen;
-   pnlMain.Color := clMoneyGreen;
+  pnlMain.Color := clMoneyGreen;
 end;
 
 procedure TfrmMain.btnAdminMouseLeave(Sender: TObject);
@@ -68,6 +102,9 @@ begin
   edtPassword.Show;
   lblUsername.Visible := True;
   lblPassword.Visible := True;
+  btnReg.Visible := True;
+  btnLogin.Visible := True;
+  btnCancel.Show;
 
 end;
 
@@ -87,6 +124,44 @@ begin
 
 end;
 
+procedure TfrmMain.btnRegClick(Sender: TObject);
+begin
+  btnLogin.Enabled := False;
+  MessageDlg(
+    'Please fill out the rest of your information and press the "register button" once you have done that', mtWarning, [mbOK], 0);
+  edtName.Show;
+  edtSurname.Show;
+  rgpGender.Show;
+end;
+
+procedure TfrmMain.btnTCancelClick(Sender: TObject);
+begin
+ edtTUsername.Visible := False;
+  edtTPassword.Visible := False;
+  lblTUsername.Visible := False;
+  lblTPassword.Visible := False;
+  btnTeacher.Show;
+  btnTReg.Visible := False;
+  btnTLogin.Visible := False;
+  btnTCancel.Hide;
+  btnTLogin.Enabled := True;
+  edtTName.Hide;
+  edtTSurname.Hide;
+end;
+
+procedure TfrmMain.btnTeacherClick(Sender: TObject);
+begin
+  btnTeacher.Hide;
+  edtTUsername.Show;
+  edtTPassword.Show;
+  lblTUsername.Visible := True;
+  lblTPassword.Visible := True;
+  btnTReg.Visible := True;
+  btnTLogin.Visible := True;
+  btnTCancel.Show;
+
+end;
+
 procedure TfrmMain.btnTeacherMouseEnter(Sender: TObject);
 begin
   btnTeacher.font.Size := 12;
@@ -102,6 +177,15 @@ begin
   pnlMain.Color := clSilver;
 end;
 
+procedure TfrmMain.btnTLoginClick(Sender: TObject);
+begin
+  btnTLogin.Enabled := False;
+  MessageDlg(
+    'Please fill out the rest of your information and press the "register button" once you have done that', mtWarning, [mbOK], 0);
+  edtTName.Show;
+  edtTSurname.Show;
+end;
+
 procedure TfrmMain.FormShow(Sender: TObject);
 begin
   frmsplash.showmodal;
@@ -109,6 +193,22 @@ begin
   edtUsername.Hide;
   lblUsername.Visible := False;
   lblPassword.Visible := False;
+  btnReg.Visible := False;
+  btnLogin.Visible := False;
+  btnCancel.Hide;
+  rgpGender.Visible := False;
+  edtName.Hide;
+  edtSurname.Hide;
+
+  edtTPassword.Hide;
+  edtTUsername.Hide;
+  lblTUsername.Visible := False;
+  lblTPassword.Visible := False;
+  btnTReg.Visible := False;
+  btnTLogin.Visible := False;
+  btnTCancel.Hide;
+  edtTName.Hide;
+  edtTSurname.Hide;
 
 end;
 

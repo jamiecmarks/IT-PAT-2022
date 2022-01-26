@@ -4,8 +4,7 @@ uses
   Forms,
   Main_U in 'Main_U.pas' {frmMain},
   Splash_U in 'Splash_U.pas' {frmSplash},
-  DBConnection_u in 'DBConnection_u.pas',
-  dbAdmin_u in 'dbAdmin_u.pas' {frmDbAdmin};
+  DBConnection_u in 'DBConnection_u.pas';
 
 {$R *.res}
 
@@ -14,6 +13,5 @@ begin
   Application.MainFormOnTaskbar := True;
   Application.CreateForm(TfrmMain, frmMain);
   Application.CreateForm(TfrmSplash, frmSplash);
-  Application.CreateForm(TfrmDbAdmin, frmDbAdmin);
   Application.Run;
 end.

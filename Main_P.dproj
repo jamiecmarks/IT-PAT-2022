@@ -49,6 +49,10 @@
 			<DCCReference Include="Splash_U.pas">
 				<Form>frmSplash</Form>
 			</DCCReference>
+			<DCCReference Include="DBConnection_u.pas"/>
+			<DCCReference Include="dbAdmin_u.pas">
+				<Form>frmDbAdmin</Form>
+			</DCCReference>
 			<BuildConfiguration Include="Base">
 				<Key>Base</Key>
 			</BuildConfiguration>

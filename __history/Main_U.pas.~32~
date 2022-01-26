@@ -52,7 +52,7 @@ type
     procedure btnTLoginClick(Sender: TObject);
     procedure btnTCancelClick(Sender: TObject);
     procedure btnTeacherClick(Sender: TObject);
-    procedure btnAdminClick(Sender: TObject);
+    procedure Resourcecentre1Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -81,11 +81,6 @@ begin
   rgpGender.Visible := False;
   edtName.Hide;
   edtSurname.Hide;
-end;
-
-procedure TfrmMain.btnAdminClick(Sender: TObject);
-begin
-  frmDBAdmin.Show;
 end;
 
 procedure TfrmMain.btnAdminMouseEnter(Sender: TObject);
@@ -232,6 +227,11 @@ end;
 procedure TfrmMain.OurStory1Click(Sender: TObject);
 begin
   ShellExecute(0, nil, PChar('ourstory.html'), nil, nil, SW_SHOWNORMAL);
+end;
+
+procedure TfrmMain.Resourcecentre1Click(Sender: TObject);
+begin
+frmDBAdmin.show;
 end;
 
 end.

@@ -155,7 +155,6 @@ object frmMain: TfrmMain
       Font.Style = [fsBold]
       ParentFont = False
       TabOrder = 4
-      OnClick = btnAdminClick
       OnMouseEnter = btnAdminMouseEnter
       OnMouseLeave = btnAdminMouseLeave
     end

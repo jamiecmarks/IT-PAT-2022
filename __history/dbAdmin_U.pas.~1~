@@ -1,0 +1,49 @@
+unit dbAdmin_U;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, dmConnect_U, ExtCtrls, DBCtrls, Grids, DBGrids, StdCtrls, Menus,
+  Queries_U;
+
+type
+  TfrmDbAdmin = class(TForm)
+    dbUsersGrid: TDBGrid;
+    DBNavigator1: TDBNavigator;
+    Label1: TLabel;
+    DBGrid1: TDBGrid;
+    Label2: TLabel;
+    DBNavigator2: TDBNavigator;
+    DBGrid2: TDBGrid;
+    DBNavigator3: TDBNavigator;
+    Label3: TLabel;
+    MainMenu1: TMainMenu;
+    fff1: TMenuItem;
+    Exit1: TMenuItem;
+    procedure Exit1Click(Sender: TObject);
+    procedure fff1Click(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frmDbAdmin: TfrmDbAdmin;
+
+implementation
+
+{$R *.dfm}
+
+procedure TfrmDbAdmin.Exit1Click(Sender: TObject);
+begin
+  Application.Terminate;
+end;
+
+procedure TfrmDbAdmin.fff1Click(Sender: TObject);
+begin
+  frmQueries.Show;
+end;
+
+end.

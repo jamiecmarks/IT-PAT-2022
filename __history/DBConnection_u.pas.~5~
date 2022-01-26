@@ -1,0 +1,56 @@
+unit DBConnection_u;
+
+interface
+
+Uses
+  Db, ADODB, DBGrids, Dialogs, Classes, DBCtrls, StdCtrls, Forms;
+
+Type
+  TConnection = class(TObject)
+  private
+  public
+    Procedure dbConnection;
+  end;
+
+var
+  frmConnect: TForm;
+  conTechno: TADOConnection;
+  tblTutors, tblSubjects, tblSessions, tblStudents: TADOTable;
+
+    implementation
+
+  { TConnection }
+
+  procedure TConnection.dbConnection;
+begin
+  conTechno := TADOConnection.Create(frmConnect);
+  conTechno.LoginPrompt := False;
+  conTechno.ConnectionString :=
+    'Provider=Microsoft.Jet.OLEDB.4.0;Data Source=TechnoTutorsDB.mdb;Mode=ReadWrite;Persist Security Info=False;'
+    + 'Jet OLEDB: Database Password = **********';
+  conTechno.Provider := 'Provider=Microsoft.Jet.OLEDB.4.0';
+  conTechno.open;
+
+  tblTutors := TADOTable.Create(frmConnect);
+  tblTutors.Connection := conTechno;
+  tblTutors.TableName := 'tblTutors';
+  tblTutors.Open;
+
+  tblStudents := TADOTable.Create(frmConnect);
+  tblStudents.Connection := conTechno;
+  tblStudents.TableName := 'tblStudents';
+  tblStudents.Open;
+
+  tblSessions := TADOTable.Create(frmConnect);
+  tblSessions.Connection := conTechno;
+  tblSessions.TableName := 'tblSessions';
+  tblSessions.Open;
+
+  tblSubjects := TADOTable.Create(frmConnect);
+  tblSubjects.Connection := conTechno;
+  tblSubjects.TableName := 'tblSubjects';
+  tblSubjects.Open;
+
+end;
+
+end.

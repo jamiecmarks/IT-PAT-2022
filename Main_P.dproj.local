@@ -8,5 +8,12 @@
     <Transaction>2022/01/25 19:54:52.870.dfm,D:\marks\Documents\School work\I.T\IT-PAT-2022\Splash_U.dfm=D:\marks\Documents\School work\I.T\IT-PAT-2022\Main_U.dfm</Transaction>
     <Transaction>2022/01/25 19:58:49.462.pas,D:\marks\Documents\School work\I.T\IT-PAT-2022\Unit1.pas=D:\marks\Documents\School work\I.T\IT-PAT-2022\Splash_U.pas</Transaction>
     <Transaction>2022/01/25 19:58:49.462.dfm,D:\marks\Documents\School work\I.T\IT-PAT-2022\Unit1.dfm=D:\marks\Documents\School work\I.T\IT-PAT-2022\Splash_U.dfm</Transaction>
+    <Transaction>2022/01/26 20:18:04.266.pas,D:\marks\Documents\School work\I.T\IT-PAT-2022\Unit1.pas=D:\marks\Documents\School work\I.T\IT-PAT-2022\DBConnection_u.pas</Transaction>
+    <Transaction>2022/01/26 20:40:17.483.pas,D:\marks\Documents\School work\I.T\IT-PAT-2022\Unit1.pas=D:\marks\Documents\School work\I.T\IT-PAT-2022\AdminMain_U.pas</Transaction>
+    <Transaction>2022/01/26 20:40:17.484.dfm,D:\marks\Documents\School work\I.T\IT-PAT-2022\Unit1.dfm=D:\marks\Documents\School work\I.T\IT-PAT-2022\AdminMain_U.dfm</Transaction>
+    <Transaction>2022/01/26 20:43:20.247.pas,D:\marks\Documents\School work\I.T\IT-PAT-2022\AdminMain_U.pas=</Transaction>
+    <Transaction>2022/01/26 20:43:20.247.dfm,D:\marks\Documents\School work\I.T\IT-PAT-2022\AdminMain_U.dfm=</Transaction>
+    <Transaction>2022/01/26 21:05:53.097.pas,D:\marks\Documents\School work\I.T\IT-PAT-2022\Unit1.pas=D:\marks\Documents\School work\I.T\IT-PAT-2022\dbAdmin_u.pas</Transaction>
+    <Transaction>2022/01/26 21:05:53.097.dfm,D:\marks\Documents\School work\I.T\IT-PAT-2022\Unit1.dfm=D:\marks\Documents\School work\I.T\IT-PAT-2022\dbAdmin_u.dfm</Transaction>
   </Transactions>
 </BorlandProject>
