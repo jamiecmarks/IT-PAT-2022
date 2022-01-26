@@ -28,15 +28,6 @@ type
     rgpGender: TRadioGroup;
     edtName: TEdit;
     edtSurname: TEdit;
-    edtTPassword: TEdit;
-    btnTLogin: TButton;
-    edtTSurname: TEdit;
-    edtTUsername: TEdit;
-    edtTName: TEdit;
-    lblTUsername: TLabel;
-    lblTPassword: TLabel;
-    btnTReg: TButton;
-    btnTCancel: TBitBtn;
     procedure FormShow(Sender: TObject);
     procedure btnLearnerMouseEnter(Sender: TObject);
     procedure btnLearnerMouseLeave(Sender: TObject);
@@ -49,9 +40,6 @@ type
     procedure btnLearnerClick(Sender: TObject);
     procedure btnCancelClick(Sender: TObject);
     procedure btnRegClick(Sender: TObject);
-    procedure btnTLoginClick(Sender: TObject);
-    procedure btnTCancelClick(Sender: TObject);
-    procedure btnTeacherClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -134,34 +122,6 @@ begin
   rgpGender.Show;
 end;
 
-procedure TfrmMain.btnTCancelClick(Sender: TObject);
-begin
- edtTUsername.Visible := False;
-  edtTPassword.Visible := False;
-  lblTUsername.Visible := False;
-  lblTPassword.Visible := False;
-  btnTeacher.Show;
-  btnTReg.Visible := False;
-  btnTLogin.Visible := False;
-  btnTCancel.Hide;
-  btnTLogin.Enabled := True;
-  edtTName.Hide;
-  edtTSurname.Hide;
-end;
-
-procedure TfrmMain.btnTeacherClick(Sender: TObject);
-begin
-  btnTeacher.Hide;
-  edtTUsername.Show;
-  edtTPassword.Show;
-  lblTUsername.Visible := True;
-  lblTPassword.Visible := True;
-  btnTReg.Visible := True;
-  btnTLogin.Visible := True;
-  btnTCancel.Show;
-
-end;
-
 procedure TfrmMain.btnTeacherMouseEnter(Sender: TObject);
 begin
   btnTeacher.font.Size := 12;
@@ -177,15 +137,6 @@ begin
   pnlMain.Color := clSilver;
 end;
 
-procedure TfrmMain.btnTLoginClick(Sender: TObject);
-begin
-  btnTLogin.Enabled := False;
-  MessageDlg(
-    'Please fill out the rest of your information and press the "register button" once you have done that', mtWarning, [mbOK], 0);
-  edtTName.Show;
-  edtTSurname.Show;
-end;
-
 procedure TfrmMain.FormShow(Sender: TObject);
 begin
   frmsplash.showmodal;
@@ -199,16 +150,6 @@ begin
   rgpGender.Visible := False;
   edtName.Hide;
   edtSurname.Hide;
-
-  edtTPassword.Hide;
-  edtTUsername.Hide;
-  lblTUsername.Visible := False;
-  lblTPassword.Visible := False;
-  btnTReg.Visible := False;
-  btnTLogin.Visible := False;
-  btnTCancel.Hide;
-  edtTName.Hide;
-  edtTSurname.Hide;
 
 end;
 

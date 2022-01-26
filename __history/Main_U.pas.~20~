@@ -4,7 +4,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, Splash_U, ExtCtrls;
+  Dialogs, StdCtrls, Splash_U, ExtCtrls, shellapi, Menus;
 
 type
   TfrmMain = class(TForm)
@@ -12,6 +12,13 @@ type
     btnLearner: TButton;
     btnTeacher: TButton;
     btnAdmin: TButton;
+    menMain: TMainMenu;
+    OurStory1: TMenuItem;
+    Resourcecentre1: TMenuItem;
+    Help1: TMenuItem;
+    Ourgithub1: TMenuItem;
+    edtUsername: TEdit;
+    edtPassword: TEdit;
     procedure FormShow(Sender: TObject);
     procedure btnLearnerMouseEnter(Sender: TObject);
     procedure btnLearnerMouseLeave(Sender: TObject);
@@ -19,6 +26,9 @@ type
     procedure btnTeacherMouseLeave(Sender: TObject);
     procedure btnAdminMouseEnter(Sender: TObject);
     procedure btnAdminMouseLeave(Sender: TObject);
+    procedure OurStory1Click(Sender: TObject);
+    procedure Ourgithub1Click(Sender: TObject);
+    procedure btnLearnerClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -44,10 +54,19 @@ begin
   pnlIntro.Color := clSilver;
 end;
 
+procedure TfrmMain.btnLearnerClick(Sender: TObject);
+begin
+btnLearner.Hide;
+edtUsername.Show;
+edtPassword.Show;
+
+
+end;
+
 procedure TfrmMain.btnLearnerMouseEnter(Sender: TObject);
 begin
   btnLearner.font.Size := 12;
-  pnlIntro.Color := clBlue'
+  pnlIntro.Color := clBlue;
 
 end;
 
@@ -73,7 +92,20 @@ end;
 procedure TfrmMain.FormShow(Sender: TObject);
 begin
   frmsplash.showmodal;
+  edtPassword.Hide;
+  edtUsername.Hide;
 
+
+end;
+
+procedure TfrmMain.Ourgithub1Click(Sender: TObject);
+begin
+     ShellExecute(0, nil, PChar('https://github.com/jamiecmarks/IT-PAT-2022'), nil, nil, SW_SHOWNORMAL);
+end;
+
+procedure TfrmMain.OurStory1Click(Sender: TObject);
+begin
+     ShellExecute(0, nil, PChar('ourstory.html'), nil, nil, SW_SHOWNORMAL);
 end;
 
 end.

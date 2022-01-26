@@ -51,7 +51,6 @@ type
     procedure btnRegClick(Sender: TObject);
     procedure btnTLoginClick(Sender: TObject);
     procedure btnTCancelClick(Sender: TObject);
-    procedure btnTeacherClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -147,19 +146,6 @@ begin
   btnTLogin.Enabled := True;
   edtTName.Hide;
   edtTSurname.Hide;
-end;
-
-procedure TfrmMain.btnTeacherClick(Sender: TObject);
-begin
-  btnTeacher.Hide;
-  edtTUsername.Show;
-  edtTPassword.Show;
-  lblTUsername.Visible := True;
-  lblTPassword.Visible := True;
-  btnTReg.Visible := True;
-  btnTLogin.Visible := True;
-  btnTCancel.Show;
-
 end;
 
 procedure TfrmMain.btnTeacherMouseEnter(Sender: TObject);

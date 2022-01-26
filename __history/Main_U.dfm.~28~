@@ -138,7 +138,6 @@ object frmMain: TfrmMain
       Font.Style = [fsBold]
       ParentFont = False
       TabOrder = 3
-      OnClick = btnTeacherClick
       OnMouseEnter = btnTeacherMouseEnter
       OnMouseLeave = btnTeacherMouseLeave
     end
@@ -292,6 +291,18 @@ object frmMain: TfrmMain
       TabOrder = 15
       TextHint = 'Last name'
     end
+    object btnTCancel: TBitBtn
+      Left = 468
+      Top = 88
+      Width = 53
+      Height = 18
+      Caption = 'cancel'
+      DoubleBuffered = True
+      Layout = blGlyphRight
+      ParentDoubleBuffered = False
+      TabOrder = 16
+      OnClick = btnCancelClick
+    end
     object btnTReg: TButton
       Left = 224
       Top = 130
@@ -307,20 +318,9 @@ object frmMain: TfrmMain
       ParentFont = False
       ParentShowHint = False
       ShowHint = True
-      TabOrder = 16
+      TabOrder = 17
       OnClick = btnTLoginClick
     end
-  end
-  object btnTCancel: TBitBtn
-    Left = 476
-    Top = 166
-    Width = 53
-    Height = 19
-    Caption = 'cancel'
-    DoubleBuffered = True
-    ParentDoubleBuffered = False
-    TabOrder = 2
-    OnClick = btnTCancelClick
   end
   object menMain: TMainMenu
     Left = 184

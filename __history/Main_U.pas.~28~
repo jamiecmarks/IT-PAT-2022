@@ -32,11 +32,11 @@ type
     btnTLogin: TButton;
     edtTSurname: TEdit;
     edtTUsername: TEdit;
+    btnTCancel: TBitBtn;
     edtTName: TEdit;
     lblTUsername: TLabel;
     lblTPassword: TLabel;
     btnTReg: TButton;
-    btnTCancel: TBitBtn;
     procedure FormShow(Sender: TObject);
     procedure btnLearnerMouseEnter(Sender: TObject);
     procedure btnLearnerMouseLeave(Sender: TObject);
@@ -50,8 +50,6 @@ type
     procedure btnCancelClick(Sender: TObject);
     procedure btnRegClick(Sender: TObject);
     procedure btnTLoginClick(Sender: TObject);
-    procedure btnTCancelClick(Sender: TObject);
-    procedure btnTeacherClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -132,34 +130,6 @@ begin
   edtName.Show;
   edtSurname.Show;
   rgpGender.Show;
-end;
-
-procedure TfrmMain.btnTCancelClick(Sender: TObject);
-begin
- edtTUsername.Visible := False;
-  edtTPassword.Visible := False;
-  lblTUsername.Visible := False;
-  lblTPassword.Visible := False;
-  btnTeacher.Show;
-  btnTReg.Visible := False;
-  btnTLogin.Visible := False;
-  btnTCancel.Hide;
-  btnTLogin.Enabled := True;
-  edtTName.Hide;
-  edtTSurname.Hide;
-end;
-
-procedure TfrmMain.btnTeacherClick(Sender: TObject);
-begin
-  btnTeacher.Hide;
-  edtTUsername.Show;
-  edtTPassword.Show;
-  lblTUsername.Visible := True;
-  lblTPassword.Visible := True;
-  btnTReg.Visible := True;
-  btnTLogin.Visible := True;
-  btnTCancel.Show;
-
 end;
 
 procedure TfrmMain.btnTeacherMouseEnter(Sender: TObject);
