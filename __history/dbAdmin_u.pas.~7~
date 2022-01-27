@@ -1,0 +1,48 @@
+unit dbAdmin_u;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, Menus, ExtCtrls, DBCtrls, Grids, DBGrids, StdCtrls, DBConnection_u;
+
+type
+  TfrmDbAdmin = class(TForm)
+    lblTutors: TLabel;
+    tblSessions: TLabel;
+    lblStudents: TLabel;
+    dbgridTutors: TDBGrid;
+    DBNavigator1: TDBNavigator;
+    DBGrid1: TDBGrid;
+    DBNavigator2: TDBNavigator;
+    DBGrid2: TDBGrid;
+    DBNavigator3: TDBNavigator;
+    MainMenu1: TMainMenu;
+    fff1: TMenuItem;
+    Exit1: TMenuItem;
+    DBGrid3: TDBGrid;
+    DBNavigator4: TDBNavigator;
+    lblSubjects: TLabel;
+    procedure FormShow(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frmDbAdmin: TfrmDbAdmin;
+  conTechno: TConnection;
+
+implementation
+
+{$R *.dfm}
+
+procedure TfrmDbAdmin.FormShow(Sender: TObject);
+begin
+ conTechno.dbConnection;
+ conTechno.ConnectDBGrids(dbgridTutors, DBGrid1, DBGrid2, DBGrid3);
+
+end;
+
+end.
