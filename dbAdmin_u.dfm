@@ -2,8 +2,8 @@ object frmDbAdmin: TfrmDbAdmin
   Left = 0
   Top = 0
   Caption = 'Database admin'
-  ClientHeight = 524
-  ClientWidth = 817
+  ClientHeight = 510
+  ClientWidth = 1064
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -29,12 +29,12 @@ object frmDbAdmin: TfrmDbAdmin
     Font.Style = [fsBold]
     ParentFont = False
   end
-  object tblSessions: TLabel
-    Left = 130
+  object lblSessions: TLabel
+    Left = 260
     Top = 254
-    Width = 141
+    Width = 116
     Height = 20
-    Caption = 'Encryptions table'
+    Caption = 'Sessions table'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = 20
@@ -44,11 +44,11 @@ object frmDbAdmin: TfrmDbAdmin
     ParentFont = False
   end
   object lblStudents: TLabel
-    Left = 554
+    Left = 717
     Top = -2
-    Width = 129
+    Width = 123
     Height = 20
-    Caption = 'Messages Table'
+    Caption = 'Students Table'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = 20
@@ -58,11 +58,11 @@ object frmDbAdmin: TfrmDbAdmin
     ParentFont = False
   end
   object lblSubjects: TLabel
-    Left = 538
+    Left = 842
     Top = 254
-    Width = 129
+    Width = 120
     Height = 20
-    Caption = 'Messages Table'
+    Caption = 'Subjects Table'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = 20
@@ -72,9 +72,9 @@ object frmDbAdmin: TfrmDbAdmin
     ParentFont = False
   end
   object dbgridTutors: TDBGrid
-    Left = 2
+    Left = 8
     Top = 24
-    Width = 393
+    Width = 522
     Height = 193
     TabOrder = 0
     TitleFont.Charset = DEFAULT_CHARSET
@@ -83,17 +83,17 @@ object frmDbAdmin: TfrmDbAdmin
     TitleFont.Name = 'Tahoma'
     TitleFont.Style = []
   end
-  object DBNavigator1: TDBNavigator
+  object DBNavigatorTutors: TDBNavigator
     Left = 2
     Top = 223
     Width = 390
     Height = 25
     TabOrder = 1
   end
-  object DBGrid1: TDBGrid
+  object DBGridSessions: TDBGrid
     Left = 2
     Top = 280
-    Width = 390
+    Width = 760
     Height = 193
     TabOrder = 2
     TitleFont.Charset = DEFAULT_CHARSET
@@ -102,17 +102,17 @@ object frmDbAdmin: TfrmDbAdmin
     TitleFont.Name = 'Tahoma'
     TitleFont.Style = []
   end
-  object DBNavigator2: TDBNavigator
+  object DBNavigatorSessions: TDBNavigator
     Left = 2
     Top = 479
-    Width = 390
+    Width = 630
     Height = 25
     TabOrder = 3
   end
-  object DBGrid2: TDBGrid
-    Left = 416
+  object DBGridStudents: TDBGrid
+    Left = 536
     Top = 24
-    Width = 393
+    Width = 520
     Height = 193
     TabOrder = 4
     TitleFont.Charset = DEFAULT_CHARSET
@@ -121,17 +121,17 @@ object frmDbAdmin: TfrmDbAdmin
     TitleFont.Name = 'Tahoma'
     TitleFont.Style = []
   end
-  object DBNavigator3: TDBNavigator
+  object DBNavigatorStudents: TDBNavigator
     Left = 416
     Top = 223
     Width = 370
     Height = 25
     TabOrder = 5
   end
-  object DBGrid3: TDBGrid
-    Left = 416
+  object DBGridSubjects: TDBGrid
+    Left = 776
     Top = 280
-    Width = 393
+    Width = 280
     Height = 193
     TabOrder = 6
     TitleFont.Charset = DEFAULT_CHARSET
@@ -140,10 +140,10 @@ object frmDbAdmin: TfrmDbAdmin
     TitleFont.Name = 'Tahoma'
     TitleFont.Style = []
   end
-  object DBNavigator4: TDBNavigator
-    Left = 416
+  object DBNavigatorSubjects: TDBNavigator
+    Left = 640
     Top = 479
-    Width = 370
+    Width = 200
     Height = 25
     TabOrder = 7
   end

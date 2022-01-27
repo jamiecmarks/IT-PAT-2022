@@ -9,19 +9,19 @@ uses
 type
   TfrmDbAdmin = class(TForm)
     lblTutors: TLabel;
-    tblSessions: TLabel;
+    lblSessions: TLabel;
     lblStudents: TLabel;
     dbgridTutors: TDBGrid;
-    DBNavigator1: TDBNavigator;
-    DBGrid1: TDBGrid;
-    DBNavigator2: TDBNavigator;
-    DBGrid2: TDBGrid;
-    DBNavigator3: TDBNavigator;
+    DBNavigatorTutors: TDBNavigator;
+    DBGridSessions: TDBGrid;
+    DBNavigatorSessions: TDBNavigator;
+    DBGridStudents: TDBGrid;
+    DBNavigatorStudents: TDBNavigator;
     MainMenu1: TMainMenu;
     fff1: TMenuItem;
     Exit1: TMenuItem;
-    DBGrid3: TDBGrid;
-    DBNavigator4: TDBNavigator;
+    DBGridSubjects: TDBGrid;
+    DBNavigatorSubjects: TDBNavigator;
     lblSubjects: TLabel;
     procedure FormShow(Sender: TObject);
   private
@@ -41,7 +41,9 @@ implementation
 procedure TfrmDbAdmin.FormShow(Sender: TObject);
 begin
  conTechno.dbConnection;
- conTechno.ConnectDBGrids(dbgridTutors, DBGrid1, DBGrid2, DBGrid3);
+ conTechno.ConnectDBGrids(dbgridTutors, DBGridSessions, DBGridStudents, DBGridSubjects);
+ dbgridTutors.Columns[2].Visible := False;
+ DBGridStudents.Columns[6].Visible := False;
 
 end;
 
