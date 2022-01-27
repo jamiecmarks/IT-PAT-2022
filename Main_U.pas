@@ -4,7 +4,8 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, Splash_U, ExtCtrls, shellapi, Menus, Buttons, dbAdmin_u;
+  Dialogs, StdCtrls, Splash_U, ExtCtrls, shellapi, Menus, Buttons, dbAdmin_u,
+  pngimage;
 
 type
   TfrmMain = class(TForm)
@@ -37,6 +38,8 @@ type
     lblTPassword: TLabel;
     btnTReg: TButton;
     btnTCancel: TBitBtn;
+    imgEyeOpen: TImage;
+    imgEyeClosed: TImage;
     procedure FormShow(Sender: TObject);
     procedure btnLearnerMouseEnter(Sender: TObject);
     procedure btnLearnerMouseLeave(Sender: TObject);
@@ -53,6 +56,8 @@ type
     procedure btnTCancelClick(Sender: TObject);
     procedure btnTeacherClick(Sender: TObject);
     procedure btnAdminClick(Sender: TObject);
+    procedure imgEyeOpenClick(Sender: TObject);
+    procedure imgEyeClosedClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -81,6 +86,9 @@ begin
   rgpGender.Visible := False;
   edtName.Hide;
   edtSurname.Hide;
+  imgEyeOpen.Hide;
+  imgEyeclosed.Hide;
+
 end;
 
 procedure TfrmMain.btnAdminClick(Sender: TObject);
@@ -113,6 +121,7 @@ begin
   btnReg.Visible := True;
   btnLogin.Visible := True;
   btnCancel.Show;
+  imgEyeOpen.Show;
 
 end;
 
@@ -210,6 +219,8 @@ begin
   rgpGender.Visible := False;
   edtName.Hide;
   edtSurname.Hide;
+  imgEyeOpen.Hide;
+  imgEyeClosed.hide;
 
   edtTPassword.Hide;
   edtTUsername.Hide;
@@ -221,6 +232,20 @@ begin
   edtTName.Hide;
   edtTSurname.Hide;
 
+end;
+
+procedure TfrmMain.imgEyeClosedClick(Sender: TObject);
+begin
+edtPassword.PasswordChar := '*';
+imgEyeCLosed.Hide;
+imgEyeopen.Show;
+end;
+
+procedure TfrmMain.imgEyeOpenClick(Sender: TObject);
+begin
+edtPassword.PasswordChar := #0;
+imgEyeOpen.Hide;
+imgEyeClosed.Show;
 end;
 
 procedure TfrmMain.Ourgithub1Click(Sender: TObject);
