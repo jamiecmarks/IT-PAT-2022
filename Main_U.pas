@@ -40,6 +40,8 @@ type
     btnTCancel: TBitBtn;
     imgEyeOpen: TImage;
     imgEyeClosed: TImage;
+    imgTEyeOpen: TImage;
+    imgTEyeClosed: TImage;
     procedure FormShow(Sender: TObject);
     procedure btnLearnerMouseEnter(Sender: TObject);
     procedure btnLearnerMouseLeave(Sender: TObject);
@@ -58,7 +60,9 @@ type
     procedure btnAdminClick(Sender: TObject);
     procedure imgEyeOpenClick(Sender: TObject);
     procedure imgEyeClosedClick(Sender: TObject);
+    procedure HideAllTeacher(bAffect: boolean);
   private
+    procedure HideAllLearner(bAffect: boolean);
     { Private declarations }
   public
     { Public declarations }
@@ -74,26 +78,15 @@ implementation
 procedure TfrmMain.btnCancelClick(Sender: TObject);
 begin
   // going back to the main home page
-  edtUsername.Visible := False;
-  edtPassword.Visible := False;
-  lblUsername.Visible := False;
-  lblPassword.Visible := False;
-  btnLearner.Show;
-  btnReg.Visible := False;
-  btnLogin.Visible := False;
-  btnCancel.Hide;
-  btnLogin.Enabled := True;
-  rgpGender.Visible := False;
-  edtName.Hide;
-  edtSurname.Hide;
-  imgEyeOpen.Hide;
-  imgEyeclosed.Hide;
-
+  HideAllLearner(True);
 end;
 
 procedure TfrmMain.btnAdminClick(Sender: TObject);
 begin
   frmDBAdmin.Show;
+
+  btnLearner.Show;
+  btnTeacher.Show;
 end;
 
 procedure TfrmMain.btnAdminMouseEnter(Sender: TObject);
@@ -113,15 +106,10 @@ end;
 procedure TfrmMain.btnLearnerClick(Sender: TObject);
 begin
   // showing the appropriate components for login as a student
-  btnLearner.Hide;
-  edtUsername.Show;
-  edtPassword.Show;
-  lblUsername.Visible := True;
-  lblPassword.Visible := True;
-  btnReg.Visible := True;
-  btnLogin.Visible := True;
-  btnCancel.Show;
-  imgEyeOpen.Show;
+  HideAllLearner(False);
+
+  btnTeacher.Show;
+  btnAdmin.Show;
 
 end;
 
@@ -155,29 +143,15 @@ end;
 procedure TfrmMain.btnTCancelClick(Sender: TObject);
 begin
   // remove the log in components
-  edtTUsername.Visible := False;
-  edtTPassword.Visible := False;
-  lblTUsername.Visible := False;
-  lblTPassword.Visible := False;
-  btnTeacher.Show;
-  btnTReg.Visible := False;
-  btnTLogin.Visible := False;
-  btnTCancel.Hide;
-  btnTLogin.Enabled := True;
-  edtTName.Hide;
-  edtTSurname.Hide;
+  HideAllTeacher(True);
 end;
 
 procedure TfrmMain.btnTeacherClick(Sender: TObject);
 begin
-  btnTeacher.Hide;
-  edtTUsername.Show;
-  edtTPassword.Show;
-  lblTUsername.Visible := True;
-  lblTPassword.Visible := True;
-  btnTReg.Visible := True;
-  btnTLogin.Visible := True;
-  btnTCancel.Show;
+  HideAllTeacher(False);
+
+  btnLearner.Show;
+  btnAdmin.Show;
 
 end;
 
@@ -209,43 +183,95 @@ end;
 procedure TfrmMain.FormShow(Sender: TObject);
 begin
   frmsplash.showmodal;
-  edtPassword.Hide;
-  edtUsername.Hide;
-  lblUsername.Visible := False;
-  lblPassword.Visible := False;
-  btnReg.Visible := False;
-  btnLogin.Visible := False;
-  btnCancel.Hide;
-  rgpGender.Visible := False;
-  edtName.Hide;
-  edtSurname.Hide;
-  imgEyeOpen.Hide;
-  imgEyeClosed.hide;
+  HideAllLearner(True);
+  HideAllTeacher(True);
 
-  edtTPassword.Hide;
-  edtTUsername.Hide;
-  lblTUsername.Visible := False;
-  lblTPassword.Visible := False;
-  btnTReg.Visible := False;
-  btnTLogin.Visible := False;
-  btnTCancel.Hide;
-  edtTName.Hide;
-  edtTSurname.Hide;
+
+end;
+
+procedure TfrmMain.HideAllLearner(bAffect: boolean);
+begin
+  if not bAffect then
+  begin
+    btnLearner.Hide;
+    edtUsername.Show;
+    edtPassword.Show;
+    lblUsername.Visible := True;
+    lblPassword.Visible := True;
+    btnReg.Visible := True;
+    btnLogin.Visible := True;
+    btnCancel.Show;
+    imgEyeOpen.Show;
+  end
+  else if bAffect then
+  begin
+    edtUsername.Visible := False;
+    edtPassword.Visible := False;
+    lblUsername.Visible := False;
+    lblPassword.Visible := False;
+    btnLearner.Show;
+    btnReg.Visible := False;
+    btnLogin.Visible := False;
+    btnCancel.Hide;
+    btnLogin.Enabled := True;
+    rgpGender.Visible := False;
+    edtName.Hide;
+    edtSurname.Hide;
+    imgEyeOpen.Hide;
+    imgEyeClosed.Hide;
+  end;
+end;
+
+procedure TfrmMain.HideAllTeacher(bAffect: boolean);
+begin
+  if bAffect then
+  begin
+    btnTeacher.Show;
+    edtTPassword.Hide;
+    edtTUsername.Hide;
+    lblTUsername.Visible := False;
+    lblTPassword.Visible := False;
+    btnTReg.Visible := False;
+    btnTLogin.Visible := False;
+    btnTCancel.Hide;
+    edtTName.Hide;
+    edtTSurname.Hide;
+    imgTEyeOpen.Hide;
+    imgTEyeClosed.Hide;
+  end;
+  if not bAffect then
+  begin
+    btnTeacher.Hide;
+    edtTUsername.Show;
+    edtTPassword.Show;
+    lblTUsername.Visible := True;
+    lblTPassword.Visible := True;
+    btnTReg.Visible := True;
+    btnTLogin.Visible := True;
+    btnTCancel.Show;
+    imgTEyeOpen.Show;
+  end;
 
 end;
 
 procedure TfrmMain.imgEyeClosedClick(Sender: TObject);
 begin
-edtPassword.PasswordChar := '*';
-imgEyeCLosed.Hide;
-imgEyeopen.Show;
+  edtPassword.PasswordChar := '*';
+  imgEyeClosed.Hide;
+  imgEyeOpen.Show;
+  edtTPassword.PasswordChar := '*';
+  imgTEyeClosed.Hide;
+  imgTEyeOpen.Show;
 end;
 
 procedure TfrmMain.imgEyeOpenClick(Sender: TObject);
 begin
-edtPassword.PasswordChar := #0;
-imgEyeOpen.Hide;
-imgEyeClosed.Show;
+  edtPassword.PasswordChar := #0;
+  imgEyeOpen.Hide;
+  imgEyeClosed.Show;
+  edtTPassword.PasswordChar := #0;
+  imgTEyeOpen.Hide;
+  imgTEyeClosed.Show;
 end;
 
 procedure TfrmMain.Ourgithub1Click(Sender: TObject);
