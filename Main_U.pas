@@ -27,13 +27,9 @@ type
     btnLogin: TButton;
     btnCancel: TBitBtn;
     rgpGender: TRadioGroup;
-    edtName: TEdit;
-    edtSurname: TEdit;
     edtTPassword: TEdit;
     btnTLogin: TButton;
-    edtTSurname: TEdit;
     edtTUsername: TEdit;
-    edtTName: TEdit;
     lblTUsername: TLabel;
     lblTPassword: TLabel;
     btnTCancel: TBitBtn;
@@ -42,6 +38,10 @@ type
     imgTEyeOpen: TImage;
     imgTEyeClosed: TImage;
     btnTReg: TButton;
+    edtSurname: TEdit;
+    edtName: TEdit;
+    edtTName: TEdit;
+    edtTSurname: TEdit;
     procedure FormShow(Sender: TObject);
     procedure btnLearnerMouseEnter(Sender: TObject);
     procedure btnLearnerMouseLeave(Sender: TObject);
@@ -64,6 +64,8 @@ type
     function KeyCreator(sKeyword: string): string;
     function Encrypt(sKey: string; PlainText: string): string;
     procedure btnTRegClick(Sender: TObject);
+    procedure btnReg2Click(Sender: TObject);
+    procedure btnTReg2Click(Sender: TObject);
   private
     procedure HideAllLearner(bAffect: boolean);
     { Private declarations }
@@ -74,6 +76,8 @@ type
 var
   frmMain: TfrmMain;
   sKey: string;
+  btnReg2: TButton; // dynamically instantiated object
+  btnTReg2: TButton; // dynamically instantiated object
 
 implementation
 
@@ -85,6 +89,10 @@ begin
   HideAllLearner(True);
   imgTEyeClosed.Hide;
   imgTEyeOpen.Hide;
+  if assigned(btnReg2) then // if the second register button has been instantiated
+  begin
+    btnReg2.visible := False;
+  end;
 end;
 
 procedure TfrmMain.btnAdminClick(Sender: TObject);
@@ -171,6 +179,12 @@ begin
 
 end;
 
+procedure TfrmMain.btnReg2Click(Sender: TObject);
+begin
+  // btnreg click
+
+end;
+
 procedure TfrmMain.btnRegClick(Sender: TObject);
 begin
   // showing and hiding appropriate components for registering a new account
@@ -181,6 +195,29 @@ begin
   edtName.Show;
   edtSurname.Show;
   rgpGender.Show;
+  if not assigned(btnReg2) then
+  begin
+    btnReg2 := TButton.Create(frmMain);
+    with btnReg2 do // dynamically instantiating a button
+    begin
+      font.Style := [fsbold];
+      parent := pnlMain;
+      font.Name := 'Verdana';
+      Caption := 'Register';
+      Top := 50;
+      Left := 224;
+      width := 100;
+      visible := True;
+      OnClick := btnReg2Click;
+    end;
+  end
+  else
+  begin
+    btnReg2.visible := True;
+  end;
+
+  btnReg.visible := False;
+
 end;
 
 procedure TfrmMain.btnTCancelClick(Sender: TObject);
@@ -189,6 +226,10 @@ begin
   HideAllTeacher(True);
   imgEyeClosed.Hide;
   imgEyeOpen.Hide;
+  if assigned(btnTReg2) then // if the second register button has been instantiated
+  begin
+    btnTReg2.visible := False;
+  end;
 end;
 
 procedure TfrmMain.btnTeacherClick(Sender: TObject);
@@ -221,6 +262,11 @@ begin
   pnlMain.Color := clSilver;
 end;
 
+procedure TfrmMain.btnTReg2Click(Sender: TObject);
+begin
+  // btntreg2 onclick event
+end;
+
 procedure TfrmMain.btnTRegClick(Sender: TObject);
 begin
   // showing and hiding appropriate components for registering a new account
@@ -229,6 +275,29 @@ begin
     'Please fill out the rest of your information and press the "register button" once you have done that', mtWarning, [mbOk], 0);
   edtTName.Show;
   edtTSurname.Show;
+  if not assigned(btnTReg2) then
+  begin
+    btnTReg2 := TButton.Create(frmMain);
+    with btnTReg2 do // dynamically instantiating a button
+    begin
+      font.Style := [fsbold];
+      parent := pnlMain;
+      font.Name := 'Verdana';
+      Caption := 'Register';
+      Top := 130;
+      Left := 225;
+      width := 100;
+      visible := True;
+      OnClick := btnTReg2Click;
+    end;
+  end
+  else
+  begin
+    btnTReg2.visible := True;
+  end;
+
+  btnTReg.visible := False;
+
 end;
 
 function TfrmMain.Decrypt(sKey: string; EncryptedText: string): string;
@@ -280,25 +349,25 @@ begin
     btnLearner.Hide;
     edtUsername.Show;
     edtPassword.Show;
-    lblUsername.Visible := True;
-    lblPassword.Visible := True;
-    btnReg.Visible := True;
-    btnLogin.Visible := True;
+    lblUsername.visible := True;
+    lblPassword.visible := True;
+    btnReg.visible := True;
+    btnLogin.visible := True;
     btnCancel.Show;
     imgEyeOpen.Show;
   end
   else if bAffect then // if baffect is true then show all learner related content
   begin
-    edtUsername.Visible := False;
-    edtPassword.Visible := False;
-    lblUsername.Visible := False;
-    lblPassword.Visible := False;
+    edtUsername.visible := False;
+    edtPassword.visible := False;
+    lblUsername.visible := False;
+    lblPassword.visible := False;
     btnLearner.Show;
-    btnReg.Visible := False;
-    btnLogin.Visible := False;
+    btnReg.visible := False;
+    btnLogin.visible := False;
     btnCancel.Hide;
     btnLogin.Enabled := True;
-    rgpGender.Visible := False;
+    rgpGender.visible := False;
     edtName.Hide;
     edtSurname.Hide;
     imgEyeOpen.Hide;
@@ -313,10 +382,10 @@ begin
     btnTeacher.Show;
     edtTPassword.Hide;
     edtTUsername.Hide;
-    lblTUsername.Visible := False;
-    lblTPassword.Visible := False;
-    btnTReg.Visible := False;
-    btnTLogin.Visible := False;
+    lblTUsername.visible := False;
+    lblTPassword.visible := False;
+    btnTReg.visible := False;
+    btnTLogin.visible := False;
     btnTCancel.Hide;
     edtTName.Hide;
     edtTSurname.Hide;
@@ -328,10 +397,10 @@ begin
     btnTeacher.Hide;
     edtTUsername.Show;
     edtTPassword.Show;
-    lblTUsername.Visible := True;
-    lblTPassword.Visible := True;
-    btnTReg.Visible := True;
-    btnTLogin.Visible := True;
+    lblTUsername.visible := True;
+    lblTPassword.visible := True;
+    btnTReg.visible := True;
+    btnTLogin.visible := True;
     btnTCancel.Show;
     imgTEyeOpen.Show;
   end;
@@ -387,12 +456,13 @@ end;
 procedure TfrmMain.Ourgithub1Click(Sender: TObject);
 begin
   ShellExecute(0, nil, PChar('https://github.com/jamiecmarks/IT-PAT-2022'),
-    nil, nil, SW_SHOWNORMAL);//open my github page in the default browser
+    nil, nil, SW_SHOWNORMAL); // open my github page in the default browser
 end;
 
 procedure TfrmMain.OurStory1Click(Sender: TObject);
 begin
-  ShellExecute(0, nil, PChar('ourstory.html'), nil, nil, SW_SHOWNORMAL); //open my htnl page in the default browser
+  ShellExecute(0, nil, PChar('ourstory.html'), nil, nil, SW_SHOWNORMAL);
+  // open my htnl page in the default browser
 end;
 
 end.

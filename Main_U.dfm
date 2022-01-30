@@ -37,7 +37,7 @@ object frmMain: TfrmMain
     Left = 8
     Top = 79
     Width = 547
-    Height = 230
+    Height = 242
     TabOrder = 1
     object lblUsername: TLabel
       Left = 330
@@ -3150,52 +3150,24 @@ object frmMain: TfrmMain
       TabOrder = 7
       WordWrap = True
     end
-    object edtName: TEdit
-      Left = 17
-      Top = 52
-      Width = 88
-      Height = 21
-      Color = clGray
-      TabOrder = 8
-      TextHint = 'First name'
-    end
-    object edtSurname: TEdit
-      Left = 111
-      Top = 52
-      Width = 89
-      Height = 21
-      Color = clAppWorkSpace
-      PasswordChar = '*'
-      TabOrder = 9
-      TextHint = 'Last name'
-    end
     object edtTUsername: TEdit
       Left = 400
       Top = 104
       Width = 121
       Height = 21
       Color = clGray
-      TabOrder = 10
-    end
-    object edtTName: TEdit
-      Left = 25
-      Top = 104
-      Width = 136
-      Height = 21
-      Color = clGray
-      TabOrder = 11
-      TextHint = 'First name'
+      TabOrder = 8
     end
     object btnCancel: TBitBtn
       Left = 468
-      Top = 9
+      Top = 8
       Width = 53
       Height = 18
       Caption = 'cancel'
       DoubleBuffered = True
       Layout = blGlyphRight
       ParentDoubleBuffered = False
-      TabOrder = 12
+      TabOrder = 9
       OnClick = btnCancelClick
     end
     object edtTPassword: TEdit
@@ -3205,7 +3177,7 @@ object frmMain: TfrmMain
       Height = 21
       Color = clAppWorkSpace
       PasswordChar = '*'
-      TabOrder = 13
+      TabOrder = 10
     end
     object btnTLogin: TButton
       Left = 224
@@ -3222,17 +3194,7 @@ object frmMain: TfrmMain
       ParentFont = False
       ParentShowHint = False
       ShowHint = True
-      TabOrder = 14
-    end
-    object edtTSurname: TEdit
-      Left = 25
-      Top = 131
-      Width = 136
-      Height = 21
-      Color = clAppWorkSpace
-      PasswordChar = '*'
-      TabOrder = 15
-      TextHint = 'Last name'
+      TabOrder = 11
     end
   end
   object btnTCancel: TBitBtn
@@ -3248,7 +3210,7 @@ object frmMain: TfrmMain
   end
   object btnTReg: TButton
     Left = 232
-    Top = 209
+    Top = 210
     Width = 100
     Height = 25
     Caption = 'Register'
@@ -3260,6 +3222,44 @@ object frmMain: TfrmMain
     ParentFont = False
     TabOrder = 3
     OnClick = btnTRegClick
+  end
+  object edtSurname: TEdit
+    Left = 119
+    Top = 131
+    Width = 89
+    Height = 21
+    Color = cl3DLight
+    ParentShowHint = False
+    ShowHint = True
+    TabOrder = 4
+    TextHint = 'Last name'
+  end
+  object edtName: TEdit
+    Left = 25
+    Top = 131
+    Width = 88
+    Height = 21
+    Color = clGrayText
+    TabOrder = 5
+    TextHint = 'First name'
+  end
+  object edtTName: TEdit
+    Left = 33
+    Top = 183
+    Width = 136
+    Height = 21
+    Color = clGrayText
+    TabOrder = 6
+    TextHint = 'First name'
+  end
+  object edtTSurname: TEdit
+    Left = 33
+    Top = 210
+    Width = 136
+    Height = 21
+    Color = cl3DLight
+    TabOrder = 7
+    TextHint = 'Last name'
   end
   object menMain: TMainMenu
     Left = 184
