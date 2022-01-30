@@ -61,6 +61,9 @@ type
     procedure imgEyeOpenClick(Sender: TObject);
     procedure imgEyeClosedClick(Sender: TObject);
     procedure HideAllTeacher(bAffect: boolean);
+    function Decrypt(sKey: string; EncryptedText: string): string;
+    function KeyCreator(sKeyword: string): string;
+    function Encrypt(sKey: string; PlainText: string): string;
   private
     procedure HideAllLearner(bAffect: boolean);
     { Private declarations }
@@ -70,6 +73,7 @@ type
 
 var
   frmMain: TfrmMain;
+  sKey: string;
 
 implementation
 
@@ -82,11 +86,34 @@ begin
 end;
 
 procedure TfrmMain.btnAdminClick(Sender: TObject);
+var
+  sEnteredPass: string;
+  myFile: textfile;
+  sEncryptedPass: string;
 begin
-  frmDBAdmin.Show;
-
   btnLearner.Show;
   btnTeacher.Show;
+
+  assignfile(myFile, 'EncryptedAdminPassword.txt');
+  reset(myFile);
+  while not eof(myFile) do
+  begin
+    readln(myFile, sEncryptedPass);
+  end;
+  closefile(myFile);
+
+  sEnteredPass := inputbox('Enter the admin password', '', 'technotutors');
+  if sEnteredPass = Decrypt(KeyCreator(sKey), sEncryptedPass) then
+  begin
+    showmessage('Welcome Admin');
+    frmDBAdmin.Show;
+  end
+  else
+  begin
+    Dialogs.MessageDlg('The entered password is incorrect, please try again',
+      mtInformation, [mbOk], 0, mbOk);
+  end;
+
 end;
 
 procedure TfrmMain.btnAdminMouseEnter(Sender: TObject);
@@ -134,7 +161,7 @@ begin
   // showing and hidint appropriate components for registering a new account
   btnLogin.Enabled := False;
   MessageDlg(
-    'Please fill out the rest of your information and press the "register button" once you have done that', mtWarning, [mbOK], 0);
+    'Please fill out the rest of your information and press the "register button" once you have done that', mtWarning, [mbOk], 0);
   edtName.Show;
   edtSurname.Show;
   rgpGender.Show;
@@ -175,17 +202,50 @@ begin
   // showing and hidint appropriate components for registering a new account
   btnTLogin.Enabled := False;
   MessageDlg(
-    'Please fill out the rest of your information and press the "register button" once you have done that', mtWarning, [mbOK], 0);
+    'Please fill out the rest of your information and press the "register button" once you have done that', mtWarning, [mbOk], 0);
   edtTName.Show;
   edtTSurname.Show;
 end;
 
+function TfrmMain.Decrypt(sKey: string; EncryptedText: string): string;
+var
+  m, iIndex: integer;
+  sOutput: string;
+const
+  sValid: string = 'abcdefghijklmnopqrstuvwxyz ';
+begin
+  // decrypting according to the key
+  for m := 1 to length(EncryptedText) do
+  begin
+    iIndex := pos(EncryptedText[m], sKey);
+    sOutput := sOutput + sValid[iIndex];
+  end;
+  result := sOutput;
+end;
+
+function TfrmMain.Encrypt(sKey, PlainText: string): string;
+var
+  m: integer;
+  sOutput: string;
+  iIndex: integer;
+const
+  sValid: string = 'abcdefghijklmnopqrstuvwxyz ';
+begin
+  // ciphering according to the key
+  for m := 1 to length(PlainText) do
+  begin
+    iIndex := pos(PlainText[m], sValid);
+    sOutput := sOutput + sKey[iIndex];
+  end;
+  result := sOutput;
+end;
+
 procedure TfrmMain.FormShow(Sender: TObject);
 begin
+  sKey := 'tech';
   frmsplash.showmodal;
   HideAllLearner(True);
   HideAllTeacher(True);
-
 
 end;
 
@@ -272,6 +332,30 @@ begin
   edtTPassword.PasswordChar := #0;
   imgTEyeOpen.Hide;
   imgTEyeClosed.Show;
+end;
+
+function TfrmMain.KeyCreator(sKeyword: string): string;
+var
+  K, iKeyIndex: integer;
+  L: integer;
+  sKey: string;
+begin
+  sKey := 'abcdefghijklmnopqrstuvwxyz ';
+  Delete(sKey, pos(sKeyword[1], sKey), 1);
+  // creating key
+  for L := 1 to length(sKey) do
+  begin
+    for K := 1 to length(sKeyword) do
+    begin
+      if sKey[L] = sKeyword[K] then // if c, a or t = abcdefghijklmnopqrstuvwxyz
+      begin
+        iKeyIndex := pos(sKeyword[K], sKey); // Keyindex = position c,a or t in abcdefghijklmnopqrstuvwxyz
+        Delete(sKey, iKeyIndex, 1);
+      end;
+    end;
+  end;
+  sKey := sKeyword + sKey;
+  result := sKey;
 end;
 
 procedure TfrmMain.Ourgithub1Click(Sender: TObject);
