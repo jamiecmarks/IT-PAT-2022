@@ -3068,7 +3068,7 @@ object frmMain: TfrmMain
       TabOrder = 2
     end
     object btnTeacher: TButton
-      Left = 0
+      Left = 2
       Top = 87
       Width = 545
       Height = 73
@@ -3223,7 +3223,6 @@ object frmMain: TfrmMain
       ParentShowHint = False
       ShowHint = True
       TabOrder = 14
-      OnClick = btnTLoginClick
     end
     object edtTSurname: TEdit
       Left = 25
@@ -3234,24 +3233,6 @@ object frmMain: TfrmMain
       PasswordChar = '*'
       TabOrder = 15
       TextHint = 'Last name'
-    end
-    object btnTReg: TButton
-      Left = 224
-      Top = 130
-      Width = 100
-      Height = 25
-      Hint = 'If you already have an account'
-      Caption = 'Register'
-      Font.Charset = ANSI_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -11
-      Font.Name = 'Verdana'
-      Font.Style = [fsBold]
-      ParentFont = False
-      ParentShowHint = False
-      ShowHint = True
-      TabOrder = 16
-      OnClick = btnTLoginClick
     end
   end
   object btnTCancel: TBitBtn
@@ -3264,6 +3245,21 @@ object frmMain: TfrmMain
     ParentDoubleBuffered = False
     TabOrder = 2
     OnClick = btnTCancelClick
+  end
+  object btnTReg: TButton
+    Left = 232
+    Top = 209
+    Width = 100
+    Height = 25
+    Caption = 'Register'
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -11
+    Font.Name = 'Verdana'
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 3
+    OnClick = btnTRegClick
   end
   object menMain: TMainMenu
     Left = 184
