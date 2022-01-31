@@ -12,12 +12,12 @@ object frmDbAdmin: TfrmDbAdmin
   Font.Style = []
   Menu = MainMenu1
   OldCreateOrder = False
-  Position = poDesktopCenter
+  Position = poDefault
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object lblTutors: TLabel
-    Left = 146
+    Left = 260
     Top = -2
     Width = 100
     Height = 20
@@ -85,9 +85,9 @@ object frmDbAdmin: TfrmDbAdmin
     TitleFont.Style = []
   end
   object DBNavigatorTutors: TDBNavigator
-    Left = 2
+    Left = 8
     Top = 223
-    Width = 390
+    Width = 520
     Height = 25
     TabOrder = 1
   end
@@ -106,7 +106,7 @@ object frmDbAdmin: TfrmDbAdmin
   object DBNavigatorSessions: TDBNavigator
     Left = 2
     Top = 479
-    Width = 630
+    Width = 760
     Height = 25
     TabOrder = 3
   end
@@ -123,9 +123,9 @@ object frmDbAdmin: TfrmDbAdmin
     TitleFont.Style = []
   end
   object DBNavigatorStudents: TDBNavigator
-    Left = 416
+    Left = 536
     Top = 223
-    Width = 370
+    Width = 520
     Height = 25
     TabOrder = 5
   end
@@ -142,9 +142,9 @@ object frmDbAdmin: TfrmDbAdmin
     TitleFont.Style = []
   end
   object DBNavigatorSubjects: TDBNavigator
-    Left = 640
+    Left = 776
     Top = 479
-    Width = 200
+    Width = 280
     Height = 25
     TabOrder = 7
   end
@@ -156,6 +156,7 @@ object frmDbAdmin: TfrmDbAdmin
     end
     object Exit1: TMenuItem
       Caption = 'Exit'
+      OnClick = Exit1Click
     end
   end
 end

@@ -24,6 +24,7 @@ type
     DBNavigatorSubjects: TDBNavigator;
     lblSubjects: TLabel;
     procedure FormShow(Sender: TObject);
+    procedure Exit1Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -38,12 +39,20 @@ implementation
 
 {$R *.dfm}
 
+procedure TfrmDbAdmin.Exit1Click(Sender: TObject);
+begin
+Application.Terminate;
+end;
+
 procedure TfrmDbAdmin.FormShow(Sender: TObject);
 begin
- conTechno.dbConnection;
- conTechno.ConnectDBGrids(dbgridTutors, DBGridSessions, DBGridStudents, DBGridSubjects);
- dbgridTutors.Columns[2].Visible := False;
- DBGridStudents.Columns[6].Visible := False;
+  conTechno.dbConnection;
+  conTechno.ConnectDBGrids(dbgridTutors, DBGridSessions, DBGridStudents,
+    DBGridSubjects);
+  conTechno.ConnectToNav(DBNavigatorTutors, DBNavigatorSessions,
+    DBNavigatorStudents, DBNavigatorSubjects);
+  dbgridTutors.Columns[2].Visible := False; // hides password column
+  DBGridStudents.Columns[6].Visible := False;
 
 end;
 

@@ -53,6 +53,9 @@
 			<DCCReference Include="dbAdmin_u.pas">
 				<Form>frmDbAdmin</Form>
 			</DCCReference>
+			<DCCReference Include="Queries_u.pas">
+				<Form>frmQueries</Form>
+			</DCCReference>
 			<BuildConfiguration Include="Base">
 				<Key>Base</Key>
 			</BuildConfiguration>

@@ -1,0 +1,35 @@
+unit Queries_u;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, StdCtrls, ExtCtrls;
+
+type
+  TfrmQueries = class(TForm)
+    Button1: TButton;
+    rdgSearch: TRadioGroup;
+    btnEnter: TButton;
+    edtName: TEdit;
+    edtSurname: TEdit;
+    btnInsert: TButton;
+    btnEdit: TButton;
+    Button2: TButton;
+    btnAverage: TButton;
+    btn2Tables: TButton;
+    btnDelete: TButton;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frmQueries: TfrmQueries;
+
+implementation
+
+{$R *.dfm}
+
+end.

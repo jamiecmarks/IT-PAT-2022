@@ -11,6 +11,8 @@ Type
   public
     Procedure dbConnection;
     Procedure ConnectDBGrids(Var dbgT, dbgSe, dbgSt, dbgSub: TDBGrid);
+    Procedure ConnectTutorAndStudent(Var dbgT, dbgSt: TDBGrid);
+    Procedure ConnectToNav(Var navT, dbgSe, navSt, navSub: TDBNavigator);
   end;
 
 var
@@ -31,14 +33,28 @@ begin
   dbgSub.DataSource := dsSubjects;
 end;
 
+procedure TConnection.ConnectToNav(var navT, dbgSe, navSt,
+  navSub: TDBNavigator);
+begin
+   navT.DataSource := dsTutors;
+  dbgSe.DataSource := dsSessions;
+  navSt.DataSource := dsStudents;
+  navSub.DataSource := dsSubjects;
+end;
+
+procedure TConnection.ConnectTutorAndStudent(var dbgT, dbgSt: TDBGrid);
+begin
+  dbgT.DataSource := dsTutors;
+  dbgSt.DataSource := dsStudents;
+end;
+
 procedure TConnection.dbConnection;
 begin
   conTechno := TADOConnection.Create(frmConnect);
   conTechno.LoginPrompt := False;
-  conTechno.ConnectionString :=
-    'Provider=Microsoft.Jet.OLEDB.4.0;' + 'Data Source=TechnoTutorsDB.mdb;' +
-    'Mode=ReadWrite;' + 'Persist Security Info=False;' +
-    'Jet OLEDB:Database Password=**********';
+  conTechno.ConnectionString := 'Provider=Microsoft.Jet.OLEDB.4.0;' +
+    'Data Source=TechnoTutorsDB.mdb;' + 'Mode=ReadWrite;' +
+    'Persist Security Info=False;' + 'Jet OLEDB:Database Password=**********';
   conTechno.Provider := 'Provider=Microsoft.Jet.OLEDB.4.0;';
   conTechno.open;
 

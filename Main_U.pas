@@ -4,8 +4,8 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, Splash_U, ExtCtrls, shellapi, Menus, Buttons, dbAdmin_u,
-  pngimage;
+  Dialogs, StdCtrls, Splash_U, ExtCtrls, shellapi, Menus, Buttons,
+  pngimage, Queries_u;
 
 type
   TfrmMain = class(TForm)
@@ -120,7 +120,7 @@ begin
   // comparing decrypted passcode to user entered passcode
   begin
     showmessage('Welcome Admin');
-    frmDBAdmin.Show;
+    frmQueries.ShowModal;
   end
   else
   begin
@@ -339,7 +339,6 @@ begin
   frmsplash.showmodal;
   HideAllLearner(True);
   HideAllTeacher(True);
-
 end;
 
 procedure TfrmMain.HideAllLearner(bAffect: boolean);
