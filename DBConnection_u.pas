@@ -20,6 +20,7 @@ var
   conTechno: TADOConnection;
   tblTutors, tblSubjects, tblSessions, tblStudents: TADOTable;
   dsTutors, dsSubjects, dsSessions, dsStudents: TDataSource;
+  qryTutors, qryStudents: TADOQuery;
 
 implementation
 
@@ -89,6 +90,13 @@ begin
 
   dsSubjects := TDataSource.Create(frmConnect);
   dsSubjects.DataSet := tblSubjects;
+
+  qryTutors := TADOQuery.Create(frmConnect);
+  qryTutors.Connection := conTechno;
+
+  qryStudents := TADOQuery.Create(frmConnect);
+  qryStudents.Connection := conTechno;
+
 
 end;
 

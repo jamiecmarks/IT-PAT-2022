@@ -17,7 +17,7 @@ object frmQueries: TfrmQueries
   PixelsPerInch = 96
   TextHeight = 13
   object Button1: TButton
-    Left = 40
+    Left = 32
     Top = 224
     Width = 137
     Height = 57
@@ -26,26 +26,28 @@ object frmQueries: TfrmQueries
     ParentShowHint = False
     ShowHint = True
     TabOrder = 0
+    OnClick = Button1Click
   end
   object rdgSearch: TRadioGroup
     Left = 231
-    Top = 201
+    Top = 209
     Width = 210
     Height = 105
-    Caption = 'Search for a user'
+    Caption = 'Search for a learner'
     TabOrder = 1
   end
   object btnEnter: TButton
     Left = 247
-    Top = 221
+    Top = 229
     Width = 169
     Height = 25
     Caption = 'Enter desired name and surname'
     TabOrder = 2
+    OnClick = btnEnterClick
   end
   object edtName: TEdit
     Left = 247
-    Top = 261
+    Top = 269
     Width = 81
     Height = 21
     TabOrder = 3
@@ -53,19 +55,20 @@ object frmQueries: TfrmQueries
   end
   object edtSurname: TEdit
     Left = 334
-    Top = 261
+    Top = 269
     Width = 82
     Height = 21
     TabOrder = 4
     Text = 'Surname'
   end
   object btnInsert: TButton
-    Left = 552
+    Left = 568
     Top = 224
     Width = 137
     Height = 57
-    Caption = 'Insert new user'
+    Caption = 'Insert new tutor'
     TabOrder = 5
+    OnClick = btnInsertClick
   end
   object btnEdit: TButton
     Left = 32
@@ -95,7 +98,7 @@ object frmQueries: TfrmQueries
     TabOrder = 8
   end
   object btn2Tables: TButton
-    Left = 880
+    Left = 808
     Top = 344
     Width = 137
     Height = 57
@@ -103,7 +106,7 @@ object frmQueries: TfrmQueries
     TabOrder = 9
   end
   object btnDelete: TButton
-    Left = 880
+    Left = 808
     Top = 224
     Width = 137
     Height = 57
