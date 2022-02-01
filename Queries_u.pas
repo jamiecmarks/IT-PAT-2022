@@ -53,9 +53,11 @@ var
 
 implementation
 
+uses Main_u;
 {$R *.dfm}
 
 procedure TfrmQueries.btnAverageClick(Sender: TObject);
+
 var
   rTotal: real;
   iCount: integer;

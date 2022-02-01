@@ -17,11 +17,11 @@ type
 
   public
     constructor Create(sUsername, sPassword, sFirstname, sSurname: string);overload;
-    constructor Create(sUsername, sPassword, sFirstname, sSurname, sScheduledSessions,sActive: string);overload;
+    constructor Create(sUsername, sPassword, sFirstname, sSurname: string;iScheduledSessions:integer;bActive:boolean);overload;
     function GetUsername: string;
     function GetFirstname: string;
     function GetSurname: string;
-    function GetNumSched: string;
+    function GetNumSched: integer;
     function IsActive: boolean;
     procedure SetPassword(sNewPass: string);
     procedure SetUsername(sUsername: string);
@@ -52,6 +52,12 @@ begin
   fActive := True;
 end;
 
+constructor TTutor.Create(sUsername, sPassword, sFirstname, sSurname: string;
+  iScheduledSessions: integer; bActive: boolean);
+begin
+
+end;
+
 destructor TTutor.Destroy;
 begin
 
@@ -63,7 +69,7 @@ begin
   result := fFirstName;
 end;
 
-function TTutor.GetNumSched: string;
+function TTutor.GetNumSched: integer;
 begin
   result := fScheduledSessions;
 end;

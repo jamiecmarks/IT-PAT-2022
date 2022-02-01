@@ -5,7 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, Splash_U, ExtCtrls, shellapi, Menus, Buttons,
-  pngimage, Queries_u;
+  pngimage, Queries_u, clsTutor_u;
 
 type
   TfrmMain = class(TForm)
@@ -78,6 +78,7 @@ var
   sKey: string;
   btnReg2: TButton; // dynamically instantiated object
   btnTReg2: TButton; // dynamically instantiated object
+  objTutor: TTutor;
 
 implementation
 
