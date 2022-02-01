@@ -6,7 +6,8 @@ uses
   Splash_U in 'Splash_U.pas' {frmSplash},
   DBConnection_u in 'DBConnection_u.pas',
   dbAdmin_u in 'dbAdmin_u.pas' {frmDbAdmin},
-  Queries_u in 'Queries_u.pas' {frmQueries};
+  Queries_u in 'Queries_u.pas' {frmQueries},
+  clsTutor_u in 'clsTutor_u.pas';
 
 {$R *.res}
 

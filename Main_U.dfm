@@ -3246,7 +3246,7 @@ object frmMain: TfrmMain
   object edtTName: TEdit
     Left = 33
     Top = 183
-    Width = 136
+    Width = 152
     Height = 21
     Color = clGrayText
     TabOrder = 6
@@ -3255,15 +3255,15 @@ object frmMain: TfrmMain
   object edtTSurname: TEdit
     Left = 33
     Top = 210
-    Width = 136
+    Width = 152
     Height = 21
     Color = cl3DLight
     TabOrder = 7
     TextHint = 'Last name'
   end
   object menMain: TMainMenu
-    Left = 184
-    Top = 176
+    Left = 376
+    Top = 104
     object OurStory1: TMenuItem
       Caption = 'Our Story'
       OnClick = OurStory1Click

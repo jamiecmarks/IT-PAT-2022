@@ -1,0 +1,155 @@
+object frmQueries: TfrmQueries
+  Left = 0
+  Top = 0
+  Caption = 'Admin Queries'
+  ClientHeight = 467
+  ClientWidth = 1034
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  Menu = MainMenu1
+  OldCreateOrder = False
+  Position = poDesktopCenter
+  OnShow = FormShow
+  PixelsPerInch = 96
+  TextHeight = 13
+  object Button1: TButton
+    Left = 32
+    Top = 224
+    Width = 137
+    Height = 57
+    Hint = 'Sorts both tables for easier navigation'
+    Caption = 'Sort both tables'
+    ParentShowHint = False
+    ShowHint = True
+    TabOrder = 0
+    OnClick = Button1Click
+  end
+  object rdgSearch: TRadioGroup
+    Left = 231
+    Top = 209
+    Width = 210
+    Height = 105
+    Caption = 'Search for a learner'
+    TabOrder = 1
+  end
+  object btnEnter: TButton
+    Left = 247
+    Top = 229
+    Width = 169
+    Height = 25
+    Caption = 'Enter desired name and surname'
+    TabOrder = 2
+    OnClick = btnEnterClick
+  end
+  object edtName: TEdit
+    Left = 247
+    Top = 269
+    Width = 81
+    Height = 21
+    TabOrder = 3
+    Text = 'Name'
+  end
+  object edtSurname: TEdit
+    Left = 334
+    Top = 269
+    Width = 82
+    Height = 21
+    TabOrder = 4
+    Text = 'Surname'
+  end
+  object btnInsert: TButton
+    Left = 568
+    Top = 224
+    Width = 137
+    Height = 57
+    Caption = 'Insert new tutor'
+    TabOrder = 5
+    OnClick = btnInsertClick
+  end
+  object btnEdit: TButton
+    Left = 32
+    Top = 344
+    Width = 169
+    Height = 57
+    Hint = 'Changes selected encryptions record date to current date'
+    Caption = 'Edit selected encryption date'
+    ParentShowHint = False
+    ShowHint = True
+    TabOrder = 6
+  end
+  object Button2: TButton
+    Left = 247
+    Top = 344
+    Width = 169
+    Height = 57
+    Caption = 'User'#39's names that start with B'
+    TabOrder = 7
+  end
+  object btnAverage: TButton
+    Left = 528
+    Top = 344
+    Width = 227
+    Height = 57
+    Caption = 'Average/Total/Min and Max proposed price'
+    TabOrder = 8
+  end
+  object btn2Tables: TButton
+    Left = 808
+    Top = 344
+    Width = 137
+    Height = 57
+    Caption = 'Dates product used'
+    TabOrder = 9
+  end
+  object btnDelete: TButton
+    Left = 808
+    Top = 224
+    Width = 137
+    Height = 57
+    Hint = 'Delete the user that your pointer is currently on'
+    Caption = 'Delete selected user'
+    ParentShowHint = False
+    ShowHint = True
+    TabOrder = 10
+  end
+  object dbgTutor: TDBGrid
+    Left = 8
+    Top = 8
+    Width = 433
+    Height = 187
+    TabOrder = 11
+    TitleFont.Charset = DEFAULT_CHARSET
+    TitleFont.Color = clWindowText
+    TitleFont.Height = -11
+    TitleFont.Name = 'Tahoma'
+    TitleFont.Style = []
+  end
+  object dbgStudent: TDBGrid
+    Left = 447
+    Top = 8
+    Width = 579
+    Height = 187
+    TabOrder = 12
+    TitleFont.Charset = DEFAULT_CHARSET
+    TitleFont.Color = clWindowText
+    TitleFont.Height = -11
+    TitleFont.Name = 'Tahoma'
+    TitleFont.Style = []
+  end
+  object MainMenu1: TMainMenu
+    Left = 512
+    Top = 240
+    object Seealltables1: TMenuItem
+      Caption = 'See all tables'
+      OnClick = Seealltables1Click
+    end
+    object MainMenu2: TMenuItem
+      Caption = 'Main Menu'
+      OnClick = MainMenu2Click
+    end
+  end
+end

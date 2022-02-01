@@ -8,14 +8,14 @@ uses
 
 type
   TfrmQueries = class(TForm)
-    Button1: TButton;
+    btnSort: TButton;
     rdgSearch: TRadioGroup;
     btnEnter: TButton;
     edtName: TEdit;
     edtSurname: TEdit;
     btnInsert: TButton;
     btnEdit: TButton;
-    Button2: TButton;
+    btnSelect: TButton;
     btnAverage: TButton;
     btn2Tables: TButton;
     btnDelete: TButton;
@@ -24,12 +24,21 @@ type
     MainMenu1: TMainMenu;
     Seealltables1: TMenuItem;
     MainMenu2: TMenuItem;
+    btnActive: TButton;
+    btnMinMax: TButton;
     procedure FormShow(Sender: TObject);
     procedure Seealltables1Click(Sender: TObject);
     procedure MainMenu2Click(Sender: TObject);
-    procedure Button1Click(Sender: TObject);
+    procedure btnSortClick(Sender: TObject);
     procedure btnEnterClick(Sender: TObject);
     procedure btnInsertClick(Sender: TObject);
+    procedure btnDeleteClick(Sender: TObject);
+    procedure btnEditClick(Sender: TObject);
+    procedure btnSelectClick(Sender: TObject);
+    procedure btnActiveClick(Sender: TObject);
+    procedure btnAverageClick(Sender: TObject);
+    procedure btnMinMaxClick(Sender: TObject);
+    procedure btn2TablesClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -46,6 +55,50 @@ implementation
 
 {$R *.dfm}
 
+procedure TfrmQueries.btnAverageClick(Sender: TObject);
+var
+  rTotal: real;
+  iCount: integer;
+begin
+  // calculating average attended lessons
+  tblSTudents.first; // start of database records
+  iCount := 0; // instantiation of icount
+  while not tblSTudents.Eof do
+  begin
+    if tblSTudents['AttendedSessions'] <> null then
+    // if an attended value is entered
+    begin
+      rTotal := rTotal + tblSTudents['AttendedSessions'];
+      // add record's attended value to total
+      inc(iCount);
+    end;
+    tblSTudents.Next;
+
+  end;
+  showmessage('The average student attended lessons is: ' + floattostrf
+    // output + finding average
+      (rTotal / iCount, ffcurrency, 5, 2));
+
+end;
+
+procedure TfrmQueries.btnDeleteClick(Sender: TObject);
+begin
+  if MessageDlg('Delete This Record?', mtConfirmation, mbYesNoCancel, 0)
+    = mrYes then
+    tblSTudents.Delete; // deleting the currently highlated learner in the dbgrid
+end;
+
+procedure TfrmQueries.btnEditClick(Sender: TObject);
+begin
+  with conTechno do
+  begin
+    tblSTudents.Edit;
+    tblSTudents['Username'] := inputbox('Enter updated username', 'Username',
+      '');
+    tblSTudents.Post;
+  end;
+end;
+
 procedure TfrmQueries.btnEnterClick(Sender: TObject);
 begin
   StudentSql('SELECT * FROM tblStudents WHERE Surname LIKE ''%' +
@@ -56,15 +109,15 @@ procedure TfrmQueries.btnInsertClick(Sender: TObject);
 var
   sFirstname, sSurname, sPass, sUsername: string;
   rProposedPrice: real;
-  iLastUserID:integer;
+  iLastUserID: integer;
 begin
-  sUserName :=  InputBox('Enter Username', '', '');
-  sFirstname := InputBox('Enter Firstname', '', '');
-  sSurname := InputBox('Enter Surname', '', '');
-  sPass := uppercase(InputBox('Enter gender (password', '', ''));
+  sUsername := inputbox('Enter Username', '', '');
+  sFirstname := inputbox('Enter Firstname', '', '');
+  sSurname := inputbox('Enter Surname', '', '');
+  sPass := uppercase(inputbox('Enter password', '', ''));
   tblTutors.last;
   tblTutors.Append;
-  tblTutors['Username'] := sUserName;
+  tblTutors['Username'] := sUsername;
   tblTutors['Firstname'] := sFirstname;
   tblTutors['Surname'] := sSurname;
   tblTutors['Password'] := sPass;
@@ -72,10 +125,54 @@ begin
   tblTutors.Post;
 end;
 
-procedure TfrmQueries.Button1Click(Sender: TObject);
+procedure TfrmQueries.btnMinMaxClick(Sender: TObject);
+var
+  iMax, iMin: integer;
 begin
-  TutorSql('SELECT * FROM tblTutors ORDER BY UserName');
-  StudentSql('SELECT * FROM tblStudents ORDER BY UserName');
+  iMin := 10000; // high max value so first real max is set to the max
+  iMax := 0; // low min value so first real min is set to the min
+  tblSTudents.first;
+  while not tblSTudents.Eof do
+  begin
+    if tblSTudents['AttendedSessions'] > iMax then // checking for new max
+    begin
+      iMax := tblSTudents['AttendedSessions'];
+    end;
+    if tblSTudents['AttendedSessions'] < iMin then // checking for new min
+    begin
+      iMin := tblSTudents['AttendedSessions'];
+    end;
+    tblSTudents.Next
+  end;
+  showmessage('The max attended lessons is: ' + inttostr(iMax)); // output
+  showmessage('The min attended lesson is: ' + inttostr(iMin)); // output
+
+end;
+
+procedure TfrmQueries.btnSelectClick(Sender: TObject);
+begin
+  StudentSql('SELECT FirstName, Surname FROM tblStudents WHERE Gender = ''M''');
+end;
+
+procedure TfrmQueries.btnSortClick(Sender: TObject);
+begin
+  TutorSql(
+    'SELECT TutorID, Username,FirstName, Surname, scheduledsessions, active FROM tblTutors ORDER BY UserName');
+  StudentSql(
+    'SELECT StudentID, UserName, Firstname, surname, Gender, attendedsessions FROM tblStudents ORDER BY UserName');
+end;
+
+procedure TfrmQueries.btn2TablesClick(Sender: TObject);
+begin
+  StudentSql(
+    'SELECT Firstname, Surname, SessionDate, SubjectID, Attended, MeetingLink'
+      + ' FROM tblStudents s, tblSessions e WHERE s.StudentID = e.StudentID ');
+end;
+
+procedure TfrmQueries.btnActiveClick(Sender: TObject);
+begin
+  TutorSql(
+    'SELECT UserName, Firstname, Surname FROM tblTutors WHERE Active = True AND ScheduledSessions > 5;');
 end;
 
 procedure TfrmQueries.FormShow(Sender: TObject);

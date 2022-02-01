@@ -16,7 +16,7 @@ object frmQueries: TfrmQueries
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
-  object Button1: TButton
+  object btnSort: TButton
     Left = 32
     Top = 224
     Width = 137
@@ -26,7 +26,7 @@ object frmQueries: TfrmQueries
     ParentShowHint = False
     ShowHint = True
     TabOrder = 0
-    OnClick = Button1Click
+    OnClick = btnSortClick
   end
   object rdgSearch: TRadioGroup
     Left = 231
@@ -38,7 +38,7 @@ object frmQueries: TfrmQueries
   end
   object btnEnter: TButton
     Left = 247
-    Top = 229
+    Top = 224
     Width = 169
     Height = 25
     Caption = 'Enter desired name and surname'
@@ -51,7 +51,7 @@ object frmQueries: TfrmQueries
     Width = 81
     Height = 21
     TabOrder = 3
-    Text = 'Name'
+    TextHint = 'Name'
   end
   object edtSurname: TEdit
     Left = 334
@@ -59,11 +59,11 @@ object frmQueries: TfrmQueries
     Width = 82
     Height = 21
     TabOrder = 4
-    Text = 'Surname'
+    TextHint = 'Surname'
   end
   object btnInsert: TButton
-    Left = 568
-    Top = 224
+    Left = 464
+    Top = 208
     Width = 137
     Height = 57
     Caption = 'Insert new tutor'
@@ -76,45 +76,51 @@ object frmQueries: TfrmQueries
     Width = 169
     Height = 57
     Hint = 'Changes selected encryptions record date to current date'
-    Caption = 'Edit selected encryption date'
+    Caption = 'Edit selected learner username'
     ParentShowHint = False
     ShowHint = True
     TabOrder = 6
+    OnClick = btnEditClick
   end
-  object Button2: TButton
+  object btnSelect: TButton
     Left = 247
     Top = 344
-    Width = 169
+    Width = 185
     Height = 57
-    Caption = 'User'#39's names that start with B'
+    Caption = 'name/surname of all male learners'
     TabOrder = 7
+    OnClick = btnSelectClick
   end
   object btnAverage: TButton
-    Left = 528
-    Top = 344
-    Width = 227
-    Height = 57
-    Caption = 'Average/Total/Min and Max proposed price'
+    Left = 616
+    Top = 336
+    Width = 199
+    Height = 41
+    Caption = 'Average Attended Sessions'
     TabOrder = 8
+    OnClick = btnAverageClick
   end
   object btn2Tables: TButton
-    Left = 808
+    Left = 856
     Top = 344
     Width = 137
     Height = 57
-    Caption = 'Dates product used'
+    Caption = 'Associated student with each sessions (2 tables)'
     TabOrder = 9
+    WordWrap = True
+    OnClick = btn2TablesClick
   end
   object btnDelete: TButton
-    Left = 808
-    Top = 224
+    Left = 662
+    Top = 208
     Width = 137
     Height = 57
     Hint = 'Delete the user that your pointer is currently on'
-    Caption = 'Delete selected user'
+    Caption = 'Delete selected student'
     ParentShowHint = False
     ShowHint = True
     TabOrder = 10
+    OnClick = btnDeleteClick
   end
   object dbgTutor: TDBGrid
     Left = 8
@@ -140,9 +146,28 @@ object frmQueries: TfrmQueries
     TitleFont.Name = 'Tahoma'
     TitleFont.Style = []
   end
+  object btnActive: TButton
+    Left = 447
+    Top = 340
+    Width = 145
+    Height = 65
+    Caption = 'Tutors who are active and have more than 5 scheduled sessions'
+    TabOrder = 13
+    WordWrap = True
+    OnClick = btnActiveClick
+  end
+  object btnMinMax: TButton
+    Left = 616
+    Top = 383
+    Width = 199
+    Height = 37
+    Caption = 'Min and max attended sessions'
+    TabOrder = 14
+    OnClick = btnMinMaxClick
+  end
   object MainMenu1: TMainMenu
-    Left = 512
-    Top = 240
+    Left = 488
+    Top = 288
     object Seealltables1: TMenuItem
       Caption = 'See all tables'
       OnClick = Seealltables1Click
