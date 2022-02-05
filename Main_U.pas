@@ -5,7 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, Splash_U, ExtCtrls, shellapi, Menus, Buttons,
-  pngimage, Queries_u, clsTutor_u;
+  pngimage, Queries_u, clsTutor_u, DBConnection_u, Db, ADODB, DBGrids;
 
 type
   TfrmMain = class(TForm)
@@ -66,6 +66,12 @@ type
     procedure btnTRegClick(Sender: TObject);
     procedure btnReg2Click(Sender: TObject);
     procedure btnTReg2Click(Sender: TObject);
+    procedure btnLoginClick(Sender: TObject);
+    function IsValid(tblUse: TADOTable; sUsername, sPassword: string): boolean;
+    procedure btnTLoginClick(Sender: TObject);
+    procedure MoreInfoTutor(sUsername: string;
+      var sFirstname, sSurname: string; var iScheduledsessions: integer;
+      var bACtive: boolean);
   private
     procedure HideAllLearner(bAffect: boolean);
     { Private declarations }
@@ -79,6 +85,7 @@ var
   btnReg2: TButton; // dynamically instantiated object
   btnTReg2: TButton; // dynamically instantiated object
   objTutor: TTutor;
+  conTechno: TConnection;
 
 implementation
 
@@ -180,6 +187,23 @@ begin
 
 end;
 
+procedure TfrmMain.btnLoginClick(Sender: TObject);
+var
+  sUsername, sPassword: string;
+begin
+  sUsername := edtUsername.Text;
+  sPassword := edtPassword.Text;
+  conTechno.dbConnection;
+  if IsValid(tblStudents, sUsername, sPassword) then
+  begin
+    ///
+  end
+
+  else
+    showmessage('Username or password is incorrect')
+
+end;
+
 procedure TfrmMain.btnReg2Click(Sender: TObject);
 begin
   // btnreg click
@@ -227,6 +251,7 @@ begin
   HideAllTeacher(True);
   imgEyeClosed.Hide;
   imgEyeOpen.Hide;
+  btnTLogin.Enabled := True;
   if assigned(btnTReg2) then // if the second register button has been instantiated
   begin
     btnTReg2.visible := False;
@@ -261,6 +286,31 @@ begin
   btnTeacher.font.Size := 10;
   pnlIntro.Color := clSilver;
   pnlMain.Color := clSilver;
+end;
+
+procedure TfrmMain.btnTLoginClick(Sender: TObject);
+var
+  sUsername, sPassword, sFirstname, sSurname: string;
+  iScheduled: integer;
+  bACtive: boolean;
+begin
+  sUsername := edtTUsername.Text;
+  sPassword := edtTPassword.Text;
+  conTechno.dbConnection;
+  if IsValid(tblTutors, sUsername, sPassword) then
+  begin
+    // showmessage('worked')
+    MoreInfoTutor(sUsername, sFirstname, sSurname, iScheduled, bACtive);
+    showmessage(sSurname);
+    objTutor := TTutor.Create(sUsername, sPassword, sFirstname, sSurname, iScheduled, bACtive);
+    showmessage(objTutor.GetSurname);
+
+  end
+
+  else
+    Dialogs.MessageDlg('Username or password is incorrect', mtConfirmation,
+      [mbOk], 0, mbYes)
+
 end;
 
 procedure TfrmMain.btnTReg2Click(Sender: TObject);
@@ -337,7 +387,7 @@ end;
 procedure TfrmMain.FormShow(Sender: TObject);
 begin
   sKey := 'tech'; // for encryption of the admin password (skey is cannot be accesssed outside of the main form)
-  frmsplash.showmodal;
+  frmsplash.ShowModal;
   HideAllLearner(True);
   HideAllTeacher(True);
 end;
@@ -429,6 +479,21 @@ begin
   imgTEyeClosed.Show;
 end;
 
+function TfrmMain.IsValid(tblUse: TADOTable;
+  sUsername, sPassword: string): boolean;
+begin
+  tblUse.First;
+  result := False;
+  while not tblUse.eof do
+  begin
+    if (lowercase(sUsername) = lowercase(tblUse['Username'])) AND
+      (sPassword = tblUse['Password']) then
+      result := True;
+    tblUse.Next
+
+  end;
+end;
+
 function TfrmMain.KeyCreator(sKeyword: string): string;
 var
   K, iKeyIndex: integer;
@@ -451,6 +516,27 @@ begin
   end;
   sKey := sKeyword + sKey; // a key with the word at the begging and the rest of the alpahabet as usual (excluding that key) e.g. catbdefghijklmnopqrsuvwxyz
   result := sKey;
+end;
+
+procedure TfrmMain.MoreInfoTutor(sUsername: string;
+  var sFirstname, sSurname: string; var iScheduledsessions: integer;
+  var bACtive: boolean);
+begin
+  tblTutors.First;
+  while not tblTutors.eof do
+  begin
+    if (lowercase(sUsername) = lowercase(tblTutors['Username'])) then
+    begin
+      sFirstname := tblTutors['Firstname'];
+      sSurname := tblTutors['Surname'];
+      iScheduledsessions := tblTutors['ScheduledSessions'];
+      bACtive := tblTutors['Active'];
+      Exit;
+    end;
+
+    tblTutors.Next
+
+  end;
 end;
 
 procedure TfrmMain.Ourgithub1Click(Sender: TObject);

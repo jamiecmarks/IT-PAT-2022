@@ -3135,6 +3135,7 @@ object frmMain: TfrmMain
       ParentShowHint = False
       ShowHint = True
       TabOrder = 6
+      OnClick = btnLoginClick
     end
     object rgpGender: TRadioGroup
       Left = 17
@@ -3181,7 +3182,7 @@ object frmMain: TfrmMain
     end
     object btnTLogin: TButton
       Left = 224
-      Top = 99
+      Top = 100
       Width = 100
       Height = 25
       Hint = 'If you already have an account'
@@ -3195,6 +3196,7 @@ object frmMain: TfrmMain
       ParentShowHint = False
       ShowHint = True
       TabOrder = 11
+      OnClick = btnTLoginClick
     end
   end
   object btnTCancel: TBitBtn
