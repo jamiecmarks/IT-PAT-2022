@@ -55,7 +55,11 @@ end;
 constructor TTutor.Create(sUsername, sPassword, sFirstname, sSurname: string;
   iScheduledSessions: integer; bActive: boolean);
 begin
-
+fUsername := sUsername;
+fPassword := sPassword;
+fSurname := sSurname;
+fScheduledSessions := iScheduledSessions;
+fActive := bACtive;
 end;
 
 destructor TTutor.Destroy;

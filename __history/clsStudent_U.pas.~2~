@@ -1,0 +1,16 @@
+unit clsStudent_U;
+
+interface
+uses clsTutor_u;
+type
+  TStudent = class(TTutor)
+  private
+   fGender:char;
+   fAttendedSessions:integer;
+
+  public
+  end;
+
+implementation
+
+end.

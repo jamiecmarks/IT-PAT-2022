@@ -1,0 +1,19 @@
+unit clsStudent_U;
+
+interface
+
+uses clsTutor_u;
+
+type
+  TStudent = class(TTutor)
+  private
+    fGender: char;
+    fAttendedSessions: integer;
+
+  public
+    constructor Create(sUsername, sPassword: string);
+  end;
+
+implementation
+
+end.

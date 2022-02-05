@@ -5,7 +5,8 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, Splash_U, ExtCtrls, shellapi, Menus, Buttons,
-  pngimage, Queries_u, clsTutor_u, DBConnection_u, Db, ADODB, DBGrids;
+  pngimage, Queries_u, clsTutor_u, DBConnection_u, Db, ADODB, DBGrids,
+  clsStudent_u;
 
 type
   TfrmMain = class(TForm)
@@ -72,6 +73,9 @@ type
     procedure MoreInfoTutor(sUsername: string;
       var sFirstname, sSurname: string; var iScheduledsessions: integer;
       var bACtive: boolean);
+    procedure MoreInfoStudent(sUsername: string;
+      var sFirstname, sSurname: string; var iAttendedSessions: integer;
+      var sGender: string);
   private
     procedure HideAllLearner(bAffect: boolean);
     { Private declarations }
@@ -86,6 +90,7 @@ var
   btnTReg2: TButton; // dynamically instantiated object
   objTutor: TTutor;
   conTechno: TConnection;
+  objStudent: TSTudent;
 
 implementation
 
@@ -189,18 +194,23 @@ end;
 
 procedure TfrmMain.btnLoginClick(Sender: TObject);
 var
-  sUsername, sPassword: string;
+  sUsername, sPassword, sFirstname, sSurname, sGender: string;
+  iAttendedLessons: integer;
+
 begin
   sUsername := edtUsername.Text;
   sPassword := edtPassword.Text;
   conTechno.dbConnection;
   if IsValid(tblStudents, sUsername, sPassword) then
   begin
-    ///
+    MoreInfoStudent(sUsername, sFirstname, sSurname, iAttendedLessons, sGender);
+    objStudent := TSTudent.Create(sUsername, sPassword, sFirstname, sSurname,
+      iAttendedLessons, sGender);
   end
 
   else
-    showmessage('Username or password is incorrect')
+    Dialogs.MessageDlg('Username or password is incorrect', mtConfirmation,
+      [mbOk], 0, mbYes)
 
 end;
 
@@ -302,8 +312,8 @@ begin
     // showmessage('worked')
     MoreInfoTutor(sUsername, sFirstname, sSurname, iScheduled, bACtive);
     showmessage(sSurname);
-    objTutor := TTutor.Create(sUsername, sPassword, sFirstname, sSurname, iScheduled, bACtive);
-    showmessage(objTutor.GetSurname);
+    objTutor := TTutor.Create(sUsername, sPassword, sFirstname, sSurname,
+      iScheduled, bACtive);
 
   end
 
@@ -489,6 +499,7 @@ begin
     if (lowercase(sUsername) = lowercase(tblUse['Username'])) AND
       (sPassword = tblUse['Password']) then
       result := True;
+
     tblUse.Next
 
   end;
@@ -516,6 +527,27 @@ begin
   end;
   sKey := sKeyword + sKey; // a key with the word at the begging and the rest of the alpahabet as usual (excluding that key) e.g. catbdefghijklmnopqrsuvwxyz
   result := sKey;
+end;
+
+procedure TfrmMain.MoreInfoStudent(sUsername: string;
+  var sFirstname, sSurname: string; var iAttendedSessions: integer;
+  var sGender: string);
+begin
+  tblStudents.First;
+  while not tblStudents.eof do
+  begin
+    if (lowercase(sUsername) = lowercase(tblStudents['Username'])) then
+    begin
+      sFirstname := tblStudents['Firstname'];
+      sSurname := tblStudents['Surname'];
+      iAttendedSessions := tblStudents['AttendedSessions'];
+      sGender := tblStudents['Gender'];
+      Exit;
+    end;
+
+    tblStudents.Next
+
+  end;
 end;
 
 procedure TfrmMain.MoreInfoTutor(sUsername: string;

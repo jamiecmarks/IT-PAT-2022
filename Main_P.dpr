@@ -7,7 +7,8 @@ uses
   DBConnection_u in 'DBConnection_u.pas',
   dbAdmin_u in 'dbAdmin_u.pas' {frmDbAdmin},
   Queries_u in 'Queries_u.pas' {frmQueries},
-  clsTutor_u in 'clsTutor_u.pas';
+  clsTutor_u in 'clsTutor_u.pas',
+  clsStudent_U in 'clsStudent_U.pas';
 
 {$R *.res}
 
