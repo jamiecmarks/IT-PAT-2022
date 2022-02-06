@@ -6,7 +6,7 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, Splash_U, ExtCtrls, shellapi, Menus, Buttons,
   pngimage, Queries_u, clsTutor_u, DBConnection_u, Db, ADODB, DBGrids,
-  clsStudent_u;
+  clsStudent_u, Student_u;
 
 type
   TfrmMain = class(TForm)
@@ -94,6 +94,7 @@ var
   objTutor: TTutor;
   conTechno: TConnection;
   objStudent: TSTudent;
+  iTimesOpen: integer = 0;
 
 implementation
 
@@ -131,7 +132,8 @@ begin
   end;
   closefile(myFile); // closefile for sEncryptedPass
 
-  sEnteredPass := inputbox('Enter the admin password', '', '');
+  sEnteredPass := inputbox('Enter the admin password', 'Password: ',
+    'technotutors');
   if sEnteredPass = Decrypt(KeyCreator(sKey), sEncryptedPass) then
   // comparing decrypted passcode to user entered passcode
   begin
@@ -210,6 +212,11 @@ begin
     MoreInfoStudent(sUsername, sFirstname, sSurname, iAttendedLessons, sGender);
     objStudent := TSTudent.Create(sUsername, sPassword, sFirstname, sSurname,
       iAttendedLessons, sGender);
+    Dialogs.MessageDlg('Welcome ' + objStudent.GetFirstname + ' ' +
+        objStudent.GetSurname + '(' + objStudent.GetUsername + ')' +
+        '. Enjoy your stay!', mtInformation, [mbOk], 0, mbOk);
+    frmMain.Hide;
+    frmLearner.Show;
   end
   else
     Dialogs.MessageDlg('Username or password is incorrect', mtConfirmation,
@@ -251,6 +258,11 @@ begin
     tblStudents['AttendedSessions'] := objStudent.GetNumAttended;
     tblStudents['Password'] := sPassword;
     tblStudents.post;
+    Dialogs.MessageDlg('Welcome ' + objStudent.GetFirstname + ' ' +
+        objStudent.GetSurname + '(' + objStudent.GetUsername + ')' +
+        '. Enjoy your stay!', mtInformation, [mbOk], 0, mbOk);
+    frmLearner.Show;
+    frmMain.Close;
   end;
 
 end;
@@ -450,8 +462,10 @@ end;
 
 procedure TfrmMain.FormShow(Sender: TObject);
 begin
-  sKey := 'tech'; // for encryption of the admin password (skey is cannot be accesssed outside of the main form)
-  frmsplash.ShowModal;
+  sKey := 'tech'; // for encryption of the admin password (skey cannot be accesssed outside of the main form)
+  if iTimesOpen = 0 then
+    frmsplash.ShowModal;
+  inc(iTimesOpen);
   HideAllLearner(True);
   HideAllTeacher(True);
 end;

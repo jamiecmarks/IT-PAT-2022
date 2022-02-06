@@ -13,6 +13,7 @@ Type
     Procedure ConnectDBGrids(Var dbgT, dbgSe, dbgSt, dbgSub: TDBGrid);
     Procedure ConnectTutorAndStudent(Var dbgT, dbgSt: TDBGrid);
     Procedure ConnectToNav(Var navT, dbgSe, navSt, navSub: TDBNavigator);
+    Procedure ConnectSessions(Var dbgSe:TDBGrid);
   end;
 
 var
@@ -20,7 +21,7 @@ var
   conTechno: TADOConnection;
   tblTutors, tblSubjects, tblSessions, tblStudents: TADOTable;
   dsTutors, dsSubjects, dsSessions, dsStudents: TDataSource;
-  qryTutors, qryStudents: TADOQuery;
+  qryTutors, qryStudents, qrySessions: TADOQuery;
 
 implementation
 
@@ -32,6 +33,11 @@ begin
   dbgSe.DataSource := dsSessions;
   dbgSt.DataSource := dsStudents;
   dbgSub.DataSource := dsSubjects;
+end;
+
+procedure TConnection.ConnectSessions(var dbgSe: TDBGrid);
+begin
+  dbgSe.DataSource := dsSessions;
 end;
 
 procedure TConnection.ConnectToNav(var navT, dbgSe, navSt,
@@ -96,6 +102,10 @@ begin
 
   qryStudents := TADOQuery.Create(frmConnect);
   qryStudents.Connection := conTechno;
+
+  qrySessions := TADOQuery.Create(frmConnect);
+  qrySessions.Connection := conTechno;
+
 
 
 end;

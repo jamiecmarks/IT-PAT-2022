@@ -8,7 +8,8 @@ uses
   dbAdmin_u in 'dbAdmin_u.pas' {frmDbAdmin},
   Queries_u in 'Queries_u.pas' {frmQueries},
   clsTutor_u in 'clsTutor_u.pas',
-  clsStudent_U in 'clsStudent_U.pas';
+  clsStudent_U in 'clsStudent_U.pas',
+  Student_u in 'Student_u.pas' {frmLearner};
 
 {$R *.res}
 
@@ -19,5 +20,6 @@ begin
   Application.CreateForm(TfrmSplash, frmSplash);
   Application.CreateForm(TfrmDbAdmin, frmDbAdmin);
   Application.CreateForm(TfrmQueries, frmQueries);
+  Application.CreateForm(TfrmLearner, frmLearner);
   Application.Run;
 end.

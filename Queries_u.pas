@@ -80,8 +80,8 @@ begin
 
   end;
   showmessage('The average student attended lessons is: ' + floattostrf
-    // output + finding average
-      (rTotal / iCount, ffcurrency, 5, 2));
+      (rTotal / iCount, fffixed, 5, 2) + ' lessons');
+  // output + finding average
 
 end;
 
@@ -173,14 +173,15 @@ var
   myFile: textfile;
   sNewPassword, sNewEncrypted, sKey: string;
 begin
-  //encrypting and saving a new admin password
-  sNewPassword := lowercase(inputbox('Enter a new password', 'Enter:', 'Technotutor'));
+  // encrypting and saving a new admin password
+  sNewPassword := lowercase(inputbox('Enter a new password', 'Enter:',
+      'Technotutor'));
   sKey := frmMain.KeyCreator('tech');
-  sNewEncrypted := frmMain.Encrypt(sKey, sNewpassword);
+  sNewEncrypted := frmMain.Encrypt(sKey, sNewPassword);
   assignfile(myFile, 'EncryptedAdminPassword.txt');
   rewrite(myFile);
   writeln(myFile, sNewEncrypted);
-  closefile(myfile);
+  closefile(myFile);
 
 end;
 
