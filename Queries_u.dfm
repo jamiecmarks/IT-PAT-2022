@@ -176,5 +176,9 @@ object frmQueries: TfrmQueries
       Caption = 'Main Menu'
       OnClick = MainMenu2Click
     end
+    object Changeadminpassword1: TMenuItem
+      Caption = 'Change admin password'
+      OnClick = Changeadminpassword1Click
+    end
   end
 end

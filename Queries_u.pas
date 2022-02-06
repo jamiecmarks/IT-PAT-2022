@@ -26,6 +26,7 @@ type
     MainMenu2: TMenuItem;
     btnActive: TButton;
     btnMinMax: TButton;
+    Changeadminpassword1: TMenuItem;
     procedure FormShow(Sender: TObject);
     procedure Seealltables1Click(Sender: TObject);
     procedure MainMenu2Click(Sender: TObject);
@@ -39,6 +40,7 @@ type
     procedure btnAverageClick(Sender: TObject);
     procedure btnMinMaxClick(Sender: TObject);
     procedure btn2TablesClick(Sender: TObject);
+    procedure Changeadminpassword1Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -166,11 +168,27 @@ begin
     'SELECT StudentID, UserName, Firstname, surname, Gender, attendedsessions FROM tblStudents ORDER BY UserName');
 end;
 
+procedure TfrmQueries.Changeadminpassword1Click(Sender: TObject);
+var
+  myFile: textfile;
+  sNewPassword, sNewEncrypted, sKey: string;
+begin
+  //encrypting and saving a new admin password
+  sNewPassword := lowercase(inputbox('Enter a new password', 'Enter:', 'Technotutor'));
+  sKey := frmMain.KeyCreator('tech');
+  sNewEncrypted := frmMain.Encrypt(sKey, sNewpassword);
+  assignfile(myFile, 'EncryptedAdminPassword.txt');
+  rewrite(myFile);
+  writeln(myFile, sNewEncrypted);
+  closefile(myfile);
+
+end;
+
 procedure TfrmQueries.btn2TablesClick(Sender: TObject);
 begin
   StudentSql(
     'SELECT Firstname, Surname, SessionDate, SubjectID, Attended, MeetingLink'
-      + ' FROM tblStudents s, tblSessions e WHERE s.StudentID = e.StudentID ');
+      + ' FROM tblStudents s, tblSession  s e WHERE s.StudentID = e.StudentID ');
 end;
 
 procedure TfrmQueries.btnActiveClick(Sender: TObject);

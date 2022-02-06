@@ -14,7 +14,6 @@ object frmMain: TfrmMain
   Menu = menMain
   OldCreateOrder = False
   Position = poScreenCenter
-  WindowState = wsMaximized
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
@@ -3039,6 +3038,7 @@ object frmMain: TfrmMain
       Top = 8
       Width = 545
       Height = 73
+      Hint = 'If you are using technotutors as a learner'
       Caption = 'Learner'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
@@ -3046,6 +3046,8 @@ object frmMain: TfrmMain
       Font.Name = 'Tahoma'
       Font.Style = [fsBold]
       ParentFont = False
+      ParentShowHint = False
+      ShowHint = True
       TabOrder = 0
       OnClick = btnLearnerClick
       OnMouseEnter = btnLearnerMouseEnter
@@ -3073,6 +3075,7 @@ object frmMain: TfrmMain
       Top = 87
       Width = 545
       Height = 73
+      Hint = 'If you are using technotutors as a teacher'
       Caption = 'Teacher'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
@@ -3080,6 +3083,8 @@ object frmMain: TfrmMain
       Font.Name = 'Tahoma'
       Font.Style = [fsBold]
       ParentFont = False
+      ParentShowHint = False
+      ShowHint = True
       TabOrder = 3
       OnClick = btnTeacherClick
       OnMouseEnter = btnTeacherMouseEnter
@@ -3090,6 +3095,7 @@ object frmMain: TfrmMain
       Top = 166
       Width = 545
       Height = 73
+      Hint = 'If you are a technotutor certified admin'
       Caption = 'Database administrator'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
@@ -3097,6 +3103,8 @@ object frmMain: TfrmMain
       Font.Name = 'Tahoma'
       Font.Style = [fsBold]
       ParentFont = False
+      ParentShowHint = False
+      ShowHint = True
       TabOrder = 4
       OnClick = btnAdminClick
       OnMouseEnter = btnAdminMouseEnter
@@ -3272,10 +3280,8 @@ object frmMain: TfrmMain
       OnClick = OurStory1Click
     end
     object Resourcecentre1: TMenuItem
-      Caption = 'Resource centre'
-    end
-    object Help1: TMenuItem
-      Caption = 'Help'
+      Caption = 'Learner Resource centre'
+      OnClick = Resourcecentre1Click
     end
     object Ourgithub1: TMenuItem
       Caption = 'Our github'
