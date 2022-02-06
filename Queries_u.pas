@@ -103,8 +103,10 @@ end;
 
 procedure TfrmQueries.btnEnterClick(Sender: TObject);
 begin
-  StudentSql('SELECT * FROM tblStudents WHERE Surname LIKE ''%' +
-      edtSurname.Text + '%'' AND Firstname LIKE ''%' + edtName.Text + '%''')
+  StudentSql(
+    'SELECT StudentID, UserName, Firstname, surname, Gender, attendedsessions'
+      + ' FROM tblStudents WHERE Surname LIKE ''%' + edtSurname.Text +
+      '%'' AND Firstname LIKE ''%' + edtName.Text + '%''')
 end;
 
 procedure TfrmQueries.btnInsertClick(Sender: TObject);
