@@ -5,18 +5,34 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, Buttons, Grids, DBGrids, DBConnection_u, pngimage,
-  ExtCtrls;
+  ExtCtrls, Menus, ComCtrls, DateUtils, shellapi;
 
 type
   TfrmLearner = class(TForm)
-    dbgridSessions: TDBGrid;
     imgExit: TImage;
     lblExit: TLabel;
+    pgcntrlLearner: TPageControl;
+    TabSheet2: TTabSheet;
+    mainmenLearner: TMainMenu;
+    Mainmenu1: TMenuItem;
+    Learnerresourcecenter1: TMenuItem;
+    redStudent: TRichEdit;
     imgSave: TImage;
-    lblSave: TLabel;
-    pnlLearner: TPanel;
+    TabSheet1: TTabSheet;
+    btnAll: TButton;
+    btnUpcoming: TButton;
+    btnToday: TButton;
+    Button1: TButton;
+    dbgridSessions: TDBGrid;
     procedure FormShow(Sender: TObject);
     procedure imgExitClick(Sender: TObject);
+    procedure Mainmenu1Click(Sender: TObject);
+    procedure btnAllClick(Sender: TObject);
+    procedure FormatRichedit;
+    procedure btnUpcomingClick(Sender: TObject);
+    procedure Learnerresourcecenter1Click(Sender: TObject);
+    procedure btnTodayClick(Sender: TObject);
+    procedure Button1Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -27,18 +43,199 @@ type
 var
   frmLearner: TfrmLearner;
   conTechno: TConnection;
+  arrSubjects: array [1 .. 13] of string;
 
 implementation
 
 uses Main_u;
 {$R *.dfm}
 
-procedure TfrmLearner.FormShow(Sender: TObject);
+procedure TfrmLearner.btnAllClick(Sender: TObject);
+var
+  iSubject: integer;
 begin
-  conTechno.dbConnection;
+  FormatRichedit;
+  redStudent.Lines.Add(#9 + #9 + 'ALL SESSIONS:');
+  redStudent.Lines.Add('|Tutor Username|' + #9 + '|Session Date|' + #9 +
+      '|Subjectname|' + #9 + '|Meeting Link|' + #9 + '|Session Time|');
+  redStudent.Lines.Add(
+    '-----------------------------------------------------------------------------------------------------------------');
+
+  conTechno.dbconnection;
+  tblSessions.First;
+  while not tblSessions.Eof do
+  begin
+    if (tblSessions['StudentUsername'] = objStudent.GetUsername) then
+    // all session records relation to a certain student
+    begin
+      iSubject := tblSessions['SubjectID'];
+      if tblSessions['Meetinglink'] = null then
+        redStudent.Lines.Add(tblSessions['TutorUsername'] + #9 + datetostr
+            (tblSessions['SessionDate']) + #9 + arrSubjects[iSubject]
+            + #9 + 'No link provided' + #9 + TimeToStr
+            (tblSessions['SessionTime']))
+      else
+        redStudent.Lines.Add(tblSessions['TutorUsername'] + #9 + datetostr
+            (tblSessions['SessionDate']) + #9 + arrSubjects[iSubject]
+            + #9 + tblSessions['Meetinglink'] + #9 + TimeToStr
+            (tblSessions['SessionTime']));
+    end;
+    tblSessions.Next;
+
+  end;
+end;
+
+procedure TfrmLearner.btnTodayClick(Sender: TObject);
+var
+  iSubject: integer;
+begin
+  FormatRichedit;
+  redStudent.Lines.Add(#9 + #9 + 'TODAY''S SESSIONS:');
+  redStudent.Lines.Add('|Tutor Username|' + #9 + '|Session Date|' + #9 +
+      '|Subjectname|' + #9 + '|Meeting Link|' + #9 + '|Session Time|');
+  redStudent.Lines.Add(
+    '-----------------------------------------------------------------------------------------------------------------');
+
+  conTechno.dbconnection;
+  tblSessions.First;
+  while not tblSessions.Eof do
+  begin
+    if (tblSessions['StudentUsername'] = objStudent.GetUsername) AND
+      (tblSessions['SessionDate'] = Today) then
+    // all session records relation to a certain student
+    begin
+      iSubject := tblSessions['SubjectID'];
+      if tblSessions['Meetinglink'] = null then
+        redStudent.Lines.Add(tblSessions['TutorUsername'] + #9 + datetostr
+            (tblSessions['SessionDate']) + #9 + arrSubjects[iSubject]
+            + #9 + 'No link provided' + #9 + TimeToStr
+            (tblSessions['SessionTime']))
+      else
+        redStudent.Lines.Add(tblSessions['TutorUsername'] + #9 + datetostr
+            (tblSessions['SessionDate']) + #9 + arrSubjects[iSubject]
+            + #9 + tblSessions['Meetinglink'] + #9 + TimeToStr
+            (tblSessions['SessionTime']));
+    end;
+    tblSessions.Next;
+  end;
+end;
+
+procedure TfrmLearner.btnUpcomingClick(Sender: TObject);
+var
+  iSubject: integer;
+begin
+  FormatRichedit;
+  redStudent.Lines.Add(#9 + #9 + 'UPCOMING SESSIONS:');
+  redStudent.Lines.Add('|Tutor Username|' + #9 + '|Session Date|' + #9 +
+      '|Subjectname|' + #9 + '|Meeting Link|' + #9 + '|Session Time|');
+  redStudent.Lines.Add(
+    '-----------------------------------------------------------------------------------------------------------------');
+
+  conTechno.dbconnection;
+  tblSessions.First;
+  while not tblSessions.Eof do
+  begin
+    if (tblSessions['StudentUsername'] = objStudent.GetUsername) AND
+      (tblSessions['SessionDate'] > Today) then
+    // all session records relation to a certain student
+    begin
+      iSubject := tblSessions['SubjectID'];
+      if tblSessions['Meetinglink'] = null then
+        redStudent.Lines.Add(tblSessions['TutorUsername'] + #9 + datetostr
+            (tblSessions['SessionDate']) + #9 + arrSubjects[iSubject]
+            + #9 + 'No link provided' + #9 + TimeToStr
+            (tblSessions['SessionTime']))
+      else
+        redStudent.Lines.Add(tblSessions['TutorUsername'] + #9 + datetostr
+            (tblSessions['SessionDate']) + #9 + arrSubjects[iSubject]
+            + #9 + tblSessions['Meetinglink'] + #9 + TimeToStr
+            (tblSessions['SessionTime']));
+    end;
+    tblSessions.Next;
+  end;
+end;
+
+procedure TfrmLearner.Button1Click(Sender: TObject);
+var
+  iSubject, iHours: integer;
+begin
+  try
+    iHours := strtoint(inputbox(
+        'Enter the amount of hours ahead from now you would like to see sessions for'
+          , 'Hours', '1'));
+  Except
+    begin
+      MessageDlg('Please insert a number', mtError, [mbOK], 0);
+      Exit;
+    end;
+  end;
+  FormatRichedit;
+  redStudent.Lines.Add(#9 + #9 + 'SESSIONS WITHIN THE NEXT ' + inttostr(iHours)
+      + ' HOURS:');
+  redStudent.Lines.Add('|Tutor Username|' + #9 + '|Session Date|' + #9 +
+      '|Subjectname|' + #9 + '|Meeting Link|' + #9 + '|Session Time|');
+  redStudent.Lines.Add(
+    '-----------------------------------------------------------------------------------------------------------------');
+
+  conTechno.dbconnection;
+  tblSessions.First;
+  showmessage(TimeToStr(now));
+  while not tblSessions.Eof do
+  begin
+    if (tblSessions['StudentUsername'] = objStudent.GetUsername) AND
+      ((tblSessions['SessionDate'] > Today) AND (tblSessions['SessionTime'] > now))
+    { AND ((tblSessions['SessionTime'] < IncHour(now, iHours))) } then
+    // all session records relation to a certain student
+    begin
+      iSubject := tblSessions['SubjectID'];
+      if tblSessions['Meetinglink'] = null then
+        redStudent.Lines.Add(tblSessions['TutorUsername'] + #9 + datetostr
+            (tblSessions['SessionDate']) + #9 + arrSubjects[iSubject]
+            + #9 + 'No link provided' + #9 + TimeToStr
+            (tblSessions['SessionTime']))
+      else
+        redStudent.Lines.Add(tblSessions['TutorUsername'] + #9 + datetostr
+            (tblSessions['SessionDate']) + #9 + arrSubjects[iSubject]
+            + #9 + tblSessions['Meetinglink'] + #9 + TimeToStr
+            (tblSessions['SessionTime']));
+    end;
+    tblSessions.Next;
+  end;
+end;
+
+procedure TfrmLearner.FormatRichedit;
+begin
+  redStudent.Clear;
+  redStudent.Paragraph.TabCount := 5; // formating for richedit
+  redStudent.Paragraph.Tab[0] := 80;
+  redStudent.Paragraph.Tab[1] := 160;
+  redStudent.Paragraph.Tab[2] := 240;
+  redStudent.Paragraph.Tab[3] := 320;
+  redStudent.Paragraph.Tab[4] := 330;
+end;
+
+procedure TfrmLearner.FormShow(Sender: TObject);
+var
+  myFile: textfile;
+  sLine: string;
+  iCount: integer;
+begin
+  conTechno.dbconnection;
   conTechno.ConnectSessions(dbgridSessions);
   SessionSql(
     'SELECT TutorUsername AS [Tutor Username], Sessiondate as [Date of sesion], meetinglink AS [Link used] FROM tblSessions where StudentUsername = ' + quotedstr(objStudent.GetUsername));
+
+  // loading the arrsubjects array according to subjects.txt
+  iCount := 1;
+  AssignFile(myFile, 'Subjects.txt');
+  reset(myFile);
+  while not Eof(myFile) do
+  begin
+    readln(myFile, sLine);
+    arrSubjects[iCount] := sLine;
+    inc(iCount);
+  end;
+  closefile(myFile);
 
 end;
 
@@ -50,14 +247,28 @@ begin
   begin
     Dialogs.MessageDlg(
       'Exiting Technotutors scheduling software, thank you for using us!',
-      mtInformation, [mbOk], 0, mbOk);
+      mtInformation, [mbOK], 0, mbOK);
     application.Terminate;
   end;
 end;
 
+procedure TfrmLearner.Learnerresourcecenter1Click(Sender: TObject);
+begin
+  ShellExecute(0, nil, PChar('resource_centre.html'), nil, nil, SW_SHOWNORMAL);
+  // opens resource centre for learners
+end;
+
+procedure TfrmLearner.Mainmenu1Click(Sender: TObject);
+begin
+  objStudent.Free;
+  frmLearner.close;
+  frmMain.Show;
+
+end;
+
 procedure TfrmLearner.SessionSql(sSql: string);
 begin
-  qrySessions.Close;
+  qrySessions.close;
   qrySessions.SQL.Clear;
   qrySessions.SQL.Add(sSql);
 
@@ -69,7 +280,8 @@ begin
   end
   else
   begin
-    qrySessions.ExecSQL; // running anything that isnt a select statemnt
+    qrySessions.ExecSQL;
+    // running anything that isnt a select statemnt
   end;
 end;
 
