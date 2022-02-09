@@ -16,8 +16,10 @@ type
     fActive: boolean;
 
   public
-    constructor Create(sUsername, sPassword, sFirstname, sSurname: string);overload;
-    constructor Create(sUsername, sPassword, sFirstname, sSurname: string;iScheduledSessions:integer;bActive:boolean);overload;
+    constructor Create(sUsername, sPassword, sFirstname, sSurname: string);
+      overload;
+    constructor Create(sUsername, sPassword, sFirstname, sSurname: string;
+      iScheduledSessions: integer; bActive: boolean); overload;
     function GetUsername: string;
     function GetFirstname: string;
     function GetSurname: string;
@@ -27,9 +29,9 @@ type
     procedure SetUsername(sUsername: string);
     procedure IncSessions;
     procedure ChangeActivity(bActive: boolean);
+    function ComparePass(sPass: string): boolean;
     function ToString: string;
     destructor Destroy; override;
-
 
   end;
 
@@ -52,14 +54,21 @@ begin
   fActive := True;
 end;
 
+function TTutor.ComparePass(sPass: string): boolean;
+begin
+  result := False;
+  if sPass = fPassword then
+    result := True
+end;
+
 constructor TTutor.Create(sUsername, sPassword, sFirstname, sSurname: string;
   iScheduledSessions: integer; bActive: boolean);
 begin
-fUsername := sUsername;
-fPassword := sPassword;
-fSurname := sSurname;
-fScheduledSessions := iScheduledSessions;
-fActive := bACtive;
+  fUsername := sUsername;
+  fPassword := sPassword;
+  fSurname := sSurname;
+  fScheduledSessions := iScheduledSessions;
+  fActive := bActive;
 end;
 
 destructor TTutor.Destroy;

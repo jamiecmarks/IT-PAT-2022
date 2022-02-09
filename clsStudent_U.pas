@@ -27,6 +27,7 @@ type
     procedure SetPassword(sNewPass: string);
     procedure SetUsername(sUsername: string);
     procedure IncSessions;
+    function ComparePass(sPass: string): boolean;
     function GetGender: string;
     function ToString: string;
     destructor Destroy; override;
@@ -51,6 +52,14 @@ begin
   fSurname := sSurname;
   fAtttendedlessons := 0;
   fGender := cGender;
+end;
+
+function TStudent.ComparePass(sPass: string): boolean;
+begin
+  result := False;
+  if sPass = fPassword then
+    result := True
+
 end;
 
 constructor TStudent.Create(sUsername, sPassword, sFirstname, sSurname: string;

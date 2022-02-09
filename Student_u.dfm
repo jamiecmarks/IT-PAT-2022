@@ -271,17 +271,18 @@ object frmLearner: TfrmLearner
     Top = 254
     Width = 681
     Height = 205
-    ActivePage = TabSheet1
+    ActivePage = TabSheet2
     TabOrder = 0
     object TabSheet2: TTabSheet
       Caption = 'Change details'
       ImageIndex = 1
-      ExplicitWidth = 770
       object imgSave: TImage
-        Left = 724
-        Top = 3
-        Width = 33
+        Left = 618
+        Top = 0
+        Width = 38
         Height = 33
+        Hint = 'Save new entered details'
+        ParentShowHint = False
         Picture.Data = {
           0954506E67496D61676589504E470D0A1A0A0000000D49484452000001000000
           010008060000005C72A8660000585B4944415478DAED9D07802445D5806B6636
@@ -992,12 +993,12 @@ object frmLearner: TfrmLearner
           83F1B30858C07635F9B30C8F6BF7972D5B36563F9A6D52FEFCE73FE3BB31B10C
           C35A8F4915BFEFD5A4A40FB4C846EBA154FAD2A2165330A43236A41AA75E5281
           10F42D9A28B9F1F7FCFF66095584C4CC89790000000049454E44AE426082}
+        ShowHint = True
         Stretch = True
       end
     end
     object TabSheet1: TTabSheet
       Caption = 'Session details'
-      ExplicitWidth = 693
       object btnAll: TButton
         Left = 0
         Top = 3
@@ -1060,6 +1061,7 @@ object frmLearner: TfrmLearner
     Font.Name = 'Tahoma'
     Font.Style = []
     ParentFont = False
+    ReadOnly = True
     ScrollBars = ssBoth
     TabOrder = 1
   end

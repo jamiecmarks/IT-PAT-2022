@@ -17,13 +17,13 @@ type
     Mainmenu1: TMenuItem;
     Learnerresourcecenter1: TMenuItem;
     redStudent: TRichEdit;
-    imgSave: TImage;
     TabSheet1: TTabSheet;
     btnAll: TButton;
     btnUpcoming: TButton;
     btnToday: TButton;
     Button1: TButton;
     dbgridSessions: TDBGrid;
+    imgSave: TImage;
     procedure FormShow(Sender: TObject);
     procedure imgExitClick(Sender: TObject);
     procedure Mainmenu1Click(Sender: TObject);
@@ -59,7 +59,7 @@ begin
   redStudent.Lines.Add('|Tutor Username|' + #9 + '|Session Date|' + #9 +
       '|Subjectname|' + #9 + '|Meeting Link|' + #9 + '|Session Time|');
   redStudent.Lines.Add(
-    '-----------------------------------------------------------------------------------------------------------------');
+    '----------------------------------------------------------------------------------------------------------------------------');
 
   conTechno.dbconnection;
   tblSessions.First;
@@ -94,7 +94,7 @@ begin
   redStudent.Lines.Add('|Tutor Username|' + #9 + '|Session Date|' + #9 +
       '|Subjectname|' + #9 + '|Meeting Link|' + #9 + '|Session Time|');
   redStudent.Lines.Add(
-    '-----------------------------------------------------------------------------------------------------------------');
+    '----------------------------------------------------------------------------------------------------------------------------');
 
   conTechno.dbconnection;
   tblSessions.First;
@@ -129,7 +129,7 @@ begin
   redStudent.Lines.Add('|Tutor Username|' + #9 + '|Session Date|' + #9 +
       '|Subjectname|' + #9 + '|Meeting Link|' + #9 + '|Session Time|');
   redStudent.Lines.Add(
-    '-----------------------------------------------------------------------------------------------------------------');
+   '----------------------------------------------------------------------------------------------------------------------------');
 
   conTechno.dbconnection;
   tblSessions.First;
@@ -171,20 +171,19 @@ begin
   end;
   FormatRichedit;
   redStudent.Lines.Add(#9 + #9 + 'SESSIONS WITHIN THE NEXT ' + inttostr(iHours)
-      + ' HOURS:');
+      + ' HOURS(S):');
   redStudent.Lines.Add('|Tutor Username|' + #9 + '|Session Date|' + #9 +
       '|Subjectname|' + #9 + '|Meeting Link|' + #9 + '|Session Time|');
   redStudent.Lines.Add(
-    '-----------------------------------------------------------------------------------------------------------------');
+    '----------------------------------------------------------------------------------------------------------------------------');
 
   conTechno.dbconnection;
   tblSessions.First;
-  showmessage(TimeToStr(now));
   while not tblSessions.Eof do
   begin
     if (tblSessions['StudentUsername'] = objStudent.GetUsername) AND
-      ((tblSessions['SessionDate'] > Today) AND (tblSessions['SessionTime'] > now))
-    { AND ((tblSessions['SessionTime'] < IncHour(now, iHours))) } then
+      ((tblSessions['SessionDate'] = Today) AND (timetostr(tblSessions['SessionTime']) > timetostr(now)))
+     AND (timetostr(tblSessions['SessionTime']) < timetostr(IncHour(now, iHours))) then
     // all session records relation to a certain student
     begin
       iSubject := tblSessions['SubjectID'];
@@ -220,6 +219,7 @@ var
   sLine: string;
   iCount: integer;
 begin
+  pgcntrlLearner.TabIndex := 1;
   conTechno.dbconnection;
   conTechno.ConnectSessions(dbgridSessions);
   SessionSql(
