@@ -277,7 +277,7 @@ object frmLearner: TfrmLearner
       Caption = 'Change details'
       ImageIndex = 1
       object imgSave: TImage
-        Left = 618
+        Left = 611
         Top = 0
         Width = 38
         Height = 33
@@ -995,6 +995,83 @@ object frmLearner: TfrmLearner
           10F42D9A28B9F1F7FCFF66095584C4CC89790000000049454E44AE426082}
         ShowHint = True
         Stretch = True
+        OnClick = imgSaveClick
+      end
+      object lblPreviousPass: TLabel
+        Left = 99
+        Top = 56
+        Width = 94
+        Height = 13
+        Caption = 'Previous Password:'
+      end
+      object lblNew: TLabel
+        Left = 99
+        Top = 88
+        Width = 74
+        Height = 13
+        Caption = 'New Password:'
+      end
+      object lblNewUsername: TLabel
+        Left = 375
+        Top = 80
+        Width = 76
+        Height = 13
+        Caption = 'New Username:'
+      end
+      object rdgpPassword: TRadioGroup
+        Left = 91
+        Top = 27
+        Width = 225
+        Height = 118
+        Caption = 'Change Password'
+        TabOrder = 0
+      end
+      object edtPrevious: TEdit
+        Left = 206
+        Top = 54
+        Width = 98
+        Height = 21
+        TabOrder = 1
+      end
+      object edtNewPass: TEdit
+        Left = 206
+        Top = 84
+        Width = 101
+        Height = 21
+        TabOrder = 2
+      end
+      object btnSubmit: TButton
+        Left = 109
+        Top = 111
+        Width = 198
+        Height = 25
+        Caption = 'Submit new password'
+        TabOrder = 3
+        OnClick = btnSubmitClick
+      end
+      object RadioGroup1: TRadioGroup
+        Left = 363
+        Top = 40
+        Width = 225
+        Height = 89
+        Caption = 'Change Username'
+        TabOrder = 4
+      end
+      object btnUsernameSubmit: TButton
+        Left = 362
+        Top = 98
+        Width = 206
+        Height = 25
+        Caption = 'Submit new username'
+        TabOrder = 5
+        OnClick = btnUsernameSubmitClick
+      end
+      object edtNewUsername: TEdit
+        Left = 469
+        Top = 71
+        Width = 99
+        Height = 21
+        TabOrder = 6
       end
     end
     object TabSheet1: TTabSheet
@@ -1075,6 +1152,10 @@ object frmLearner: TfrmLearner
     object Learnerresourcecenter1: TMenuItem
       Caption = 'Learner resource center'
       OnClick = Learnerresourcecenter1Click
+    end
+    object Userinfo1: TMenuItem
+      Caption = 'User info'
+      OnClick = Userinfo1Click
     end
   end
 end

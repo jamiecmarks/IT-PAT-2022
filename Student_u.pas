@@ -24,6 +24,17 @@ type
     Button1: TButton;
     dbgridSessions: TDBGrid;
     imgSave: TImage;
+    rdgpPassword: TRadioGroup;
+    lblPreviousPass: TLabel;
+    lblNew: TLabel;
+    edtPrevious: TEdit;
+    edtNewPass: TEdit;
+    btnSubmit: TButton;
+    Userinfo1: TMenuItem;
+    RadioGroup1: TRadioGroup;
+    lblNewUsername: TLabel;
+    btnUsernameSubmit: TButton;
+    edtNewUsername: TEdit;
     procedure FormShow(Sender: TObject);
     procedure imgExitClick(Sender: TObject);
     procedure Mainmenu1Click(Sender: TObject);
@@ -33,6 +44,10 @@ type
     procedure Learnerresourcecenter1Click(Sender: TObject);
     procedure btnTodayClick(Sender: TObject);
     procedure Button1Click(Sender: TObject);
+    procedure btnSubmitClick(Sender: TObject);
+    procedure Userinfo1Click(Sender: TObject);
+    procedure btnUsernameSubmitClick(Sender: TObject);
+    procedure imgSaveClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -44,6 +59,9 @@ var
   frmLearner: TfrmLearner;
   conTechno: TConnection;
   arrSubjects: array [1 .. 13] of string;
+  sOriginalUsername: string;
+  sNewPass: string;
+  bPassChanged: boolean = False;
 
 implementation
 
@@ -83,6 +101,23 @@ begin
     tblSessions.Next;
 
   end;
+end;
+
+procedure TfrmLearner.btnSubmitClick(Sender: TObject);
+begin
+  if objStudent.ComparePass(edtPrevious.Text) then
+  begin
+    if not frmMain.IsValidPassword(edtNewPass.Text) then
+      exit;
+    objStudent.SetPassword(edtNewPass.Text);
+    bPassChanged := True;
+    messagedlg('Your password has been succesfully updated!', mtinformation,
+      [mbok], 0);
+    sNewPass := edtNewPass.Text;
+  end
+  else
+    messagedlg('Your previous password is incorrect', mtinformation, [mbok], 0);
+
 end;
 
 procedure TfrmLearner.btnTodayClick(Sender: TObject);
@@ -129,7 +164,7 @@ begin
   redStudent.Lines.Add('|Tutor Username|' + #9 + '|Session Date|' + #9 +
       '|Subjectname|' + #9 + '|Meeting Link|' + #9 + '|Session Time|');
   redStudent.Lines.Add(
-   '----------------------------------------------------------------------------------------------------------------------------');
+    '----------------------------------------------------------------------------------------------------------------------------');
 
   conTechno.dbconnection;
   tblSessions.First;
@@ -155,6 +190,20 @@ begin
   end;
 end;
 
+procedure TfrmLearner.btnUsernameSubmitClick(Sender: TObject);
+begin
+  if frmMain.IsUniqueUsername(tblStudents, edtNewUsername.Text) then
+  begin
+    objStudent.SetUsername(edtNewUsername.Text);
+    messagedlg('Your username has been succesfully updated!', mtinformation,
+      [mbok], 0);
+  end
+  else
+    messagedlg('Your'' username is not unique, please choose another one',
+      mtinformation, [mbok], 0);
+
+end;
+
 procedure TfrmLearner.Button1Click(Sender: TObject);
 var
   iSubject, iHours: integer;
@@ -165,8 +214,8 @@ begin
           , 'Hours', '1'));
   Except
     begin
-      MessageDlg('Please insert a number', mtError, [mbOK], 0);
-      Exit;
+      messagedlg('Please insert a number', mtError, [mbok], 0);
+      exit;
     end;
   end;
   FormatRichedit;
@@ -182,8 +231,10 @@ begin
   while not tblSessions.Eof do
   begin
     if (tblSessions['StudentUsername'] = objStudent.GetUsername) AND
-      ((tblSessions['SessionDate'] = Today) AND (timetostr(tblSessions['SessionTime']) > timetostr(now)))
-     AND (timetostr(tblSessions['SessionTime']) < timetostr(IncHour(now, iHours))) then
+      ((tblSessions['SessionDate'] = Today) AND
+        (TimeToStr(tblSessions['SessionTime']) > TimeToStr(now))) AND
+      (TimeToStr(tblSessions['SessionTime']) < TimeToStr(IncHour(now, iHours))
+      ) then
     // all session records relation to a certain student
     begin
       iSubject := tblSessions['SubjectID'];
@@ -219,6 +270,7 @@ var
   sLine: string;
   iCount: integer;
 begin
+  sOriginalUsername := objStudent.GetUsername;
   pgcntrlLearner.TabIndex := 1;
   conTechno.dbconnection;
   conTechno.ConnectSessions(dbgridSessions);
@@ -236,20 +288,40 @@ begin
     inc(iCount);
   end;
   closefile(myFile);
-
 end;
 
 procedure TfrmLearner.imgExitClick(Sender: TObject);
 begin
-  if Dialogs.MessageDlg(
+  if Dialogs.messagedlg(
     'Are you sure you want to exit, all unsaved changes will be lost?',
     mtConfirmation, [mbYes, mbNo], 0, mbYes) = mrYes then
   begin
-    Dialogs.MessageDlg(
+    Dialogs.messagedlg(
       'Exiting Technotutors scheduling software, thank you for using us!',
-      mtInformation, [mbOK], 0, mbOK);
+      mtinformation, [mbok], 0, mbok);
     application.Terminate;
   end;
+end;
+
+procedure TfrmLearner.imgSaveClick(Sender: TObject);
+begin
+  tblStudents.First;
+  while not tblStudents.Eof do
+  begin
+    if tblStudents['Username'] = sOriginalUsername then
+    begin
+      tblStudents.Edit;
+      tblStudents['Username'] := objStudent.GetUsername;
+      if bPassChanged then
+        tblStudents['Password'] := sNewPass;
+      tblStudents.Post;
+      messagedlg('Changes have been permanantly saved', mtinformation, [mbok],
+        0);
+
+    end;
+    tblStudents.Next;
+  end;
+
 end;
 
 procedure TfrmLearner.Learnerresourcecenter1Click(Sender: TObject);
@@ -283,6 +355,11 @@ begin
     qrySessions.ExecSQL;
     // running anything that isnt a select statemnt
   end;
+end;
+
+procedure TfrmLearner.Userinfo1Click(Sender: TObject);
+begin
+  redStudent.Lines.Add(objStudent.ToString); // outputs info about the user
 end;
 
 end.
