@@ -3060,6 +3060,7 @@ object frmMain: TfrmMain
       Height = 21
       Color = clGray
       TabOrder = 1
+      Text = 'a'
     end
     object edtPassword: TEdit
       Left = 400
@@ -3069,6 +3070,7 @@ object frmMain: TfrmMain
       Color = clAppWorkSpace
       PasswordChar = '*'
       TabOrder = 2
+      Text = 'a'
     end
     object btnTeacher: TButton
       Left = 2
@@ -3167,6 +3169,7 @@ object frmMain: TfrmMain
       Height = 21
       Color = clGray
       TabOrder = 8
+      Text = 'Admin'
     end
     object btnCancel: TBitBtn
       Left = 468
@@ -3188,6 +3191,7 @@ object frmMain: TfrmMain
       Color = clAppWorkSpace
       PasswordChar = '*'
       TabOrder = 10
+      Text = 'Admin'
     end
     object btnTLogin: TButton
       Left = 224

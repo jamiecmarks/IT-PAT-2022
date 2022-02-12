@@ -6,7 +6,7 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, Splash_U, ExtCtrls, shellapi, Menus, Buttons,
   pngimage, Queries_u, clsTutor_u, DBConnection_u, Db, ADODB, DBGrids,
-  clsStudent_u, Student_u;
+  clsStudent_u, Student_u, Tutor_u;
 
 type
   TfrmMain = class(TForm)
@@ -357,9 +357,13 @@ begin
   if IsValid(tblTutors, sUsername, sPassword) then
   begin
     MoreInfoTutor(sUsername, sFirstname, sSurname, iScheduled, bACtive);
-    showmessage(sSurname);
     objTutor := TTutor.Create(sUsername, sPassword, sFirstname, sSurname,
       iScheduled, bACtive);
+    Dialogs.MessageDlg('Welcome ' + objTutor.GetFirstname + ' ' +
+        objTutor.GetSurname + '(' + objTutor.GetUsername + ')' +
+        '. Enjoy your stay!', mtInformation, [mbOk], 0, mbOk);
+    frmMain.Hide;
+    frmTutor.Show;
   end
   else
     Dialogs.MessageDlg('Username or password is incorrect', mtConfirmation,
@@ -390,6 +394,11 @@ begin
     tblTutors['ScheduledSessions'] := objTutor.GetNumSched;
     tblTutors['Password'] := sPassword;
     tblTutors.post;
+        Dialogs.MessageDlg('Welcome ' + objTutor.GetFirstname + ' ' +
+        objTutor.GetSurname + '(' + objTutor.GetUsername + ')' +
+        '. Enjoy your stay!', mtInformation, [mbOk], 0, mbOk);
+    frmMain.Hide;
+    frmTutor.Show;
   end;
 
 end;

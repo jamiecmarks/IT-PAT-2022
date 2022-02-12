@@ -1049,7 +1049,7 @@ object frmLearner: TfrmLearner
         TabOrder = 3
         OnClick = btnSubmitClick
       end
-      object RadioGroup1: TRadioGroup
+      object rdgpUsername: TRadioGroup
         Left = 363
         Top = 40
         Width = 225

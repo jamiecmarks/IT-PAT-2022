@@ -106,7 +106,7 @@ end;
 procedure TfrmQueries.btnEnterClick(Sender: TObject);
 begin
   StudentSql(
-    'SELECT StudentID, UserName, Firstname, surname, Gender, attendedsessions'
+    'SELECT UserName, Firstname, surname, Gender, attendedsessions'
       + ' FROM tblStudents WHERE Surname LIKE ''%' + edtSurname.Text +
       '%'' AND Firstname LIKE ''%' + edtName.Text + '%''')
 end;
@@ -163,9 +163,9 @@ end;
 procedure TfrmQueries.btnSortClick(Sender: TObject);
 begin
   TutorSql(
-    'SELECT TutorID, Username,FirstName, Surname, scheduledsessions, active FROM tblTutors ORDER BY UserName');
+    'SELECT Username,FirstName, Surname, scheduledsessions, active FROM tblTutors ORDER BY UserName');
   StudentSql(
-    'SELECT StudentID, UserName, Firstname, surname, Gender, attendedsessions FROM tblStudents ORDER BY UserName');
+    'SELECT UserName, Firstname, surname, Gender, attendedsessions FROM tblStudents ORDER BY UserName');
 end;
 
 procedure TfrmQueries.Changeadminpassword1Click(Sender: TObject);
@@ -189,7 +189,7 @@ procedure TfrmQueries.btn2TablesClick(Sender: TObject);
 begin
   StudentSql(
     'SELECT Firstname, Surname, SessionDate, SubjectID, Attended, MeetingLink'
-      + ' FROM tblStudents s, tblSession  s e WHERE s.StudentID = e.StudentID ');
+      + ' FROM tblStudents s, tblSessions e WHERE s.Username = e.StudentUsername ');
 end;
 
 procedure TfrmQueries.btnActiveClick(Sender: TObject);
@@ -203,7 +203,7 @@ begin
   conTechno.dbConnection;
   conTechno.ConnectTutorAndStudent(dbgTutor, dbgStudent);
   dbgTutor.Columns[2].Visible := False; // hides password column
-  dbgStudent.Columns[6].Visible := False;
+  dbgStudent.Columns[5].Visible := False;
 end;
 
 procedure TfrmQueries.MainMenu2Click(Sender: TObject);
