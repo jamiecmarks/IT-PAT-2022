@@ -5,7 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, Menus, StdCtrls, ComCtrls, Grids, DBGrids, ExtCtrls, pngimage,
-  DBConnection_u, DateUtils, ShellApi;
+  DBConnection_u, DateUtils, ShellApi, Spin;
 
 type
   TfrmTutor = class(TForm)
@@ -35,6 +35,23 @@ type
     Learnerresourcecenter1: TMenuItem;
     Userinfo1: TMenuItem;
     imgSave: TImage;
+    TabSheet3: TTabSheet;
+    pnlSchedule: TPanel;
+    lblUsername: TLabel;
+    lblMeetingLInk: TLabel;
+    lblSubject: TLabel;
+    lblSessionDate: TLabel;
+    edtUsername: TEdit;
+    edtMeetingLink: TEdit;
+    cmbSubject: TComboBox;
+    DateTimeSessions: TDateTimePicker;
+    btnSchedule: TButton;
+    Label1: TLabel;
+    lblHour: TLabel;
+    lblMinute: TLabel;
+    sedHour: TSpinEdit;
+    sedMinute: TSpinEdit;
+    btnChangeAttendance: TButton;
     procedure FormShow(Sender: TObject);
     procedure btnAllClick(Sender: TObject);
     procedure imgExitClick(Sender: TObject);
@@ -47,6 +64,8 @@ type
     procedure Mainmenu1Click(Sender: TObject);
     procedure Learnerresourcecenter1Click(Sender: TObject);
     procedure Userinfo1Click(Sender: TObject);
+    procedure btnScheduleClick(Sender: TObject);
+    procedure btnChangeAttendanceClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -101,6 +120,128 @@ begin
   end;
 end;
 
+procedure TfrmTutor.btnChangeAttendanceClick(Sender: TObject);
+var
+  iSessionID: integer;
+  bFound: boolean;
+begin
+  SessionSql(
+    'SELECT SessionID as [Session ID], StudentUsername AS [Student Username], Attended FROM tblSessions where TutorUsername = ' + quotedstr(objTutor.GetUsername));
+  // edited dbgrid for ease of use
+  bFound := False;
+  try // error checking for inputting of an integer ahead to check sessions for
+    iSessionID := strtoint(inputbox(
+        'Enter the sessionID that you would like to change the attendance for',
+        'Session ID', ''));
+    // if no errors come up
+  Except
+    begin // if an error shows up show this message
+      messagedlg('Please insert a number', mterror, [mbok], 0);
+      exit;
+    end;
+  end;
+  tblSessions.First; // beggining of db
+  while not tblSessions.Eof do
+  begin
+    if (tblSessions['SessionID'] = iSessionID) AND
+      (tblSessions['TutorUSername'] = objTutor.GetUsername) then
+    // if the iSessionID is found
+    begin
+      bFound := True; // the record was succesfully found
+      if tblSessions['Attended'] then
+      begin
+        tblSessions.edit;
+        tblSessions['Attended'] := False; // changes attendance to opposite of what it was
+        tblSessions.post;
+      end
+      else
+      begin
+        tblSessions.edit;
+        tblSessions['Attended'] := True; // changes attendance to opposite of what it was
+        tblSessions.post;
+      end;
+      messagedlg('Succesfully changed session attendance', mtinformation,
+        [mbok], 0);
+    end;
+
+    tblSessions.Next;
+  end;
+  if not bFound then
+    messagedlg(
+      'Entered Session ID either does not exist or is not the ID of one of your students'
+        , mtinformation, [mbok], 0); // if the record wasnt found succesfully
+  SessionSql(
+    'SELECT SessionID as [Session ID], StudentUsername AS [Student Username], Sessiondate as [Date of session], meetinglink AS [Link used], Attended FROM tblSessions where TutorUsername = ' + quotedstr(objTutor.GetUsername));
+  // 'refreshing' the dbgrid info to be updated);
+
+end;
+
+procedure TfrmTutor.btnScheduleClick(Sender: TObject);
+var
+  sUsername: string;
+  iSubject: integer;
+  SelectedTime: TDateTime;
+  iHour, iMinute: integer;
+begin
+  // username validation
+  sUsername := edtUsername.Text; // storing entered username
+  if frmMain.IsUniqueUsernameNoMssge(tblStudents, sUsername) then
+  // if the username is not unique, ie no learner of that username
+  begin
+    messagedlg('The entered learner username does not exist', mterror, [mbok],
+      0); // error message
+    exit;
+  end;
+
+  // subject presence check
+  if cmbSubject.ItemIndex = -1 then // if no subject is selected
+  begin
+    messagedlg('Please select a subject', mterror, [mbok], 0);
+    // error message
+    exit;
+  end;
+  iSubject := cmbSubject.ItemIndex;
+
+  // date and time validation
+  if datetostr(DateTimeSessions.Date) < datetostr(Today) then
+  // if the day selected is less than today
+  begin
+    messagedlg('The selected date has passed, please select another one',
+      mterror, [mbok], 0); // error message
+    exit;
+  end;
+
+  iHour := sedHour.Value;
+  iMinute := sedMinute.Value;
+  SelectedTime := encodetime(iHour, iMinute, 0, 0);
+  // convert spin edit values into a time
+  if (datetostr(DateTimeSessions.Date) = datetostr(Today)) AND
+    ((TimeToStr(SelectedTime) < TimeToStr(now))) then
+  // if the day selected is today but the time has already passed
+  begin
+    messagedlg(
+      'The selected time has already passed, please choose an applicable time',
+      mterror, [mbok], 0); // error message
+    exit;
+  end;
+  showmessage(datetostr(DateTimeSessions.Date));
+  // All session data has been validated, now have to insert into database
+  tblSessions.Last; // last record in db
+  tblSessions.Append; // add new record
+  tblSessions['StudentUsername'] := sUsername;
+  tblSessions['TutorUsername'] := objTutor.GetUsername;
+  tblSessions['SubjectID'] := iSubject;
+  if edtMeetingLink.Text <> '' then
+    tblSessions['MeetingLink'] := edtMeetingLink.Text;
+  tblSessions['Sessiondate'] := DateTimeSessions.Date;
+  tblSessions['SessionTime'] := SelectedTime;
+  tblSessions.post;
+
+  // success message
+  messagedlg('Session succesfully added!', mtinformation, [mbok], 0);
+
+end;
+
 procedure TfrmTutor.btnSubmitClick(Sender: TObject);
 begin
   if objTutor.ComparePass(edtPrevious.Text) then // if the entered password is the same as the old password
@@ -108,15 +249,17 @@ begin
     if not frmMain.IsValidPassword(edtNewPass.Text) then
       // check if the password is a valid one
       exit;
-    objTutor.SetPassword(edtNewPass.Text); // set password to new password
+    objTutor.SetPassword(edtNewPass.Text);
+    // set password to new password
     bPassChanged := True; // changed for db update purposes
     messagedlg(
       'Your password has been succesfully updated!, , remember to save changes for then to take affect', mtinformation, [mbok], 0);
-    sNewPass := edtNewPass.Text; // saved for db update purposes
+    sNewPass := edtNewPass.Text;
+    // saved for db update purposes
   end
   else
-    messagedlg('Your previous password is incorrect', mtinformation, [mbok],
-      0); // if the previous password is incorrect
+    messagedlg('Your previous password is incorrect', mtinformation, [mbok], 0);
+  // if the previous password is incorrect
 
 end;
 
@@ -124,7 +267,8 @@ procedure TfrmTutor.btnTodayClick(Sender: TObject);
 var
   iSubject: integer;
 begin
-  frmLearner.FormatRichedit(redTutor); // format richedit
+  frmLearner.FormatRichedit(redTutor);
+  // format richedit
   redTutor.Lines.Add(#9 + #9 + 'TODAY''S SESSIONS:'); // title
   redTutor.Lines.Add('|Student Username|' + #9 + '|Session Date|' + #9 +
       '|Subjectname|' + #9 + '|Meeting Link|' + #9 + '|Session Time|');
@@ -160,7 +304,8 @@ procedure TfrmTutor.btnUpcomingClick(Sender: TObject);
 var
   iSubject: integer;
 begin
-  frmLearner.FormatRichedit(redTutor); // formatting richedit
+  frmLearner.FormatRichedit(redTutor);
+  // formatting richedit
   redTutor.Lines.Add(#9 + #9 + 'UPCOMING SESSIONS:'); // title
   redTutor.Lines.Add('|Student Username|' + #9 + '|Session Date|' + #9 +
       '|Subjectname|' + #9 + '|Meeting Link|' + #9 + '|Session Time|');
@@ -186,7 +331,8 @@ begin
         redTutor.Lines.Add(tblSessions['StudentUsername'] + #9 + datetostr
             (tblSessions['SessionDate']) + #9 + arrSubjects[iSubject]
             + #9 + tblSessions['Meetinglink'] + #9 + TimeToStr
-            (tblSessions['SessionTime'])); // outputed if meeting link is provided
+            (tblSessions['SessionTime']));
+      // outputed if meeting link is provided
     end; // next record in db
     tblSessions.Next;
   end;
@@ -194,9 +340,11 @@ end;
 
 procedure TfrmTutor.btnUsernameSubmitClick(Sender: TObject);
 begin
-  if frmMain.IsUniqueUsername(tblTutors, edtNewUsername.Text) then // if the username is unique, ie has not been used by any other users
+  if frmMain.IsUniqueUsername(tblTutors, edtNewUsername.Text) then
+  // if the username is unique, ie has not been used by any other users
   begin
-    objTutor.SetUsername(edtNewUsername.Text); // set new username to object
+    objTutor.SetUsername(edtNewUsername.Text);
+    // set new username to object
     messagedlg(
       'Your username has been succesfully updated!, remember to save changes for then to take affect', mtinformation, [mbok], 0);
     // confirmation message
@@ -210,14 +358,17 @@ end;
 procedure TfrmTutor.Button1Click(Sender: TObject);
 var
   iSubject, iHours: integer;
+  dDate: TDateTime;
 begin
   try // error checking for inputting of hours ahead to check sessions for
     iHours := strtoint(inputbox(
         'Enter the amount of hours ahead from now you would like to see sessions for'
-          , 'Hours', '1')); // if no errors come up
+          , 'Hours', '1'));
+    // if no errors come up
   Except
+
     begin // if an error shows up show this message
-      messagedlg('Please insert a number', mtError, [mbok], 0);
+      messagedlg('Please insert a number', mterror, [mbok], 0);
       exit;
     end;
   end;
@@ -236,20 +387,20 @@ begin
   begin
     if (tblSessions['TutorUsername'] = objTutor.GetUsername) AND
       ((tblSessions['SessionDate'] = Today) AND
-        (TimeToStr(tblSessions['SessionTime']) > TimeToStr(now))) AND
-      (TimeToStr(tblSessions['SessionTime']) < TimeToStr(IncHour(now, iHours))
+        (datetostr(tblSessions['SessionTime']) > TimeToStr(now))) AND
+      (TimeToStr(tblSessions['sessiontime']) < TimeToStr(IncHour(now, iHours))
       // if the clientid matches db and the session time is between now and the incrimented time acccording to user input
       ) then
     // all session records relation to a certain student
     begin
       iSubject := tblSessions['SubjectID'];
       if tblSessions['Meetinglink'] = null then
-        redTutor.Lines.Add(tblSessions['LearnerUsername'] + #9 + datetostr
+        redTutor.Lines.Add(tblSessions['StudentUsername'] + #9 + datetostr
             (tblSessions['SessionDate']) + #9 + arrSubjects[iSubject]
             + #9 + 'No link provided' + #9 + TimeToStr
             (tblSessions['SessionTime'])) // output if no meeting link is supplied
       else
-        redTutor.Lines.Add(tblSessions['LearnerUsername'] + #9 + datetostr
+        redTutor.Lines.Add(tblSessions['StudentUsername'] + #9 + datetostr
             (tblSessions['SessionDate']) + #9 + arrSubjects[iSubject]
             + #9 + tblSessions['Meetinglink'] + #9 + TimeToStr
             (tblSessions['SessionTime'])); // output if no meeting link is supplied
@@ -263,9 +414,10 @@ procedure TfrmTutor.FormShow(Sender: TObject);
 var
   myFile: textfile;
   sLine: string;
-  iCount: integer;
+  iCount, I: integer;
 begin
-  sOriginalUsername := objTutor.GetUsername; // storing orignal surname incase it gets changed later
+  sOriginalUsername := objTutor.GetUsername;
+  // storing orignal surname incase it gets changed later
   pgcntrlLearner.TabIndex := 1; // setting page control default page
   conTechno.dbconnection; // database connection
   conTechno.ConnectSessions(dbgridSessions);
@@ -283,7 +435,18 @@ begin
     arrSubjects[iCount] := sLine;
     inc(iCount);
   end;
-  closefile(myFile); // close subject textfile
+  closefile(myFile);
+  // close subject textfile
+
+
+  // ***************loading combo box*******************************//
+
+  // load subjects into combobox from array
+  for I := 1 to length(arrSubjects) do // cycle trhough array
+  begin
+    cmbSubject.Items.Add(arrSubjects[I]);
+    // load array context into combobox
+  end;
 end;
 
 procedure TfrmTutor.imgExitClick(Sender: TObject);
@@ -302,16 +465,18 @@ end;
 
 procedure TfrmTutor.imgSaveClick(Sender: TObject);
 begin
-  tblTutors.First; // begining of db
+  tblTutors.First;
+  // begining of db
   while not tblTutors.Eof do // loop through db
   begin
     if tblTutors['Username'] = sOriginalUsername then // finding the user (with their original username) in the db
     begin
-      tblTutors.Edit; // edit mode for db
+      tblTutors.edit; // edit mode for db
       tblTutors['Username'] := objTutor.GetUsername; // set new username
       if bPassChanged then
-        tblTutors['Password'] := sNewPass; // if the password was changed change db
-      tblTutors.Post;
+        tblTutors['Password'] := sNewPass;
+      // if the password was changed change db
+      tblTutors.post;
       messagedlg('Changes have been permanantly saved', mtinformation, [mbok],
         // confirmation message
         0);
@@ -356,7 +521,8 @@ end;
 
 procedure TfrmTutor.Userinfo1Click(Sender: TObject);
 begin
-  redTutor.Lines.Add(objTutor.ToString); // outputs info about the user
+  redTutor.Lines.Add(objTutor.ToString);
+  // outputs info about the user
 end;
 
 end.

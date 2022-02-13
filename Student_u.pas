@@ -110,16 +110,17 @@ begin
   if objStudent.ComparePass(edtPrevious.Text) then // if the entered password is the same as the old password
   begin
     if not frmMain.IsValidPassword(edtNewPass.Text) then
-    // check if the password is a valid one
+      // check if the password is a valid one
       exit;
     objStudent.SetPassword(edtNewPass.Text); // set password to new password
     bPassChanged := True; // changed for db update purposes
-    messagedlg('Your password has been succesfully updated!', mtinformation,
-      [mbok], 0);
+    messagedlg(
+      'Your password has been succesfully updated!, , remember to save changes for then to take affect', mtinformation, [mbok], 0);
     sNewPass := edtNewPass.Text; // saved for db update purposes
   end
   else
-    messagedlg('Your previous password is incorrect', mtinformation, [mbok], 0); //if the previous password is incorrect
+    messagedlg('Your previous password is incorrect', mtinformation, [mbok],
+      0); // if the previous password is incorrect
 
 end;
 
@@ -197,15 +198,16 @@ end;
 
 procedure TfrmLearner.btnUsernameSubmitClick(Sender: TObject);
 begin
-  if frmMain.IsUniqueUsername(tblStudents, edtNewUsername.Text) then
+  if frmMain.IsUniqueUsername(tblStudents, edtNewUsername.Text) then // if the username is unique, ie has not been used by any other users
   begin
-    objStudent.SetUsername(edtNewUsername.Text);
-    messagedlg('Your username has been succesfully updated!', mtinformation,
-      [mbok], 0);
+    objStudent.SetUsername(edtNewUsername.Text); // set new username to object
+    messagedlg(
+      'Your username has been succesfully updated!, remember to save changes for then to take affect', mtinformation, [mbok], 0);
+    // confirmation message
   end
   else
     messagedlg('Your'' username is not unique, please choose another one',
-      mtinformation, [mbok], 0);
+      mtinformation, [mbok], 0); // if the username is not unique
 
 end;
 
@@ -314,17 +316,18 @@ end;
 
 procedure TfrmLearner.imgSaveClick(Sender: TObject);
 begin
-  tblStudents.First;
-  while not tblStudents.Eof do
+  tblStudents.First; // begining of db
+  while not tblStudents.Eof do // loop through db
   begin
-    if tblStudents['Username'] = sOriginalUsername then
+    if tblStudents['Username'] = sOriginalUsername then // finding the user (with their original username) in the db
     begin
-      tblStudents.Edit;
-      tblStudents['Username'] := objStudent.GetUsername;
+      tblStudents.Edit; // edit mode for db
+      tblStudents['Username'] := objStudent.GetUsername; // set new username
       if bPassChanged then
-        tblStudents['Password'] := sNewPass;
+        tblStudents['Password'] := sNewPass; // if the password was changed change db
       tblStudents.Post;
       messagedlg('Changes have been permanantly saved', mtinformation, [mbok],
+        // confirmation message
         0);
 
     end;

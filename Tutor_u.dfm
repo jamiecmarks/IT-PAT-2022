@@ -275,7 +275,6 @@ object frmTutor: TfrmTutor
     object TabSheet2: TTabSheet
       Caption = 'Change details'
       ImageIndex = 1
-      ExplicitWidth = 673
       object lblPreviousPass: TLabel
         Left = 99
         Top = 56
@@ -1073,7 +1072,6 @@ object frmTutor: TfrmTutor
     end
     object TabSheet1: TTabSheet
       Caption = 'Session details'
-      ExplicitWidth = 673
       object btnAll: TButton
         Left = 0
         Top = 3
@@ -1122,6 +1120,177 @@ object frmTutor: TfrmTutor
         TitleFont.Height = -11
         TitleFont.Name = 'Tahoma'
         TitleFont.Style = []
+      end
+      object btnChangeAttendance: TButton
+        Left = 0
+        Top = 135
+        Width = 265
+        Height = 39
+        Caption = 'Change Attendance'
+        TabOrder = 5
+        OnClick = btnChangeAttendanceClick
+      end
+    end
+    object TabSheet3: TTabSheet
+      Caption = 'Schedule a session'
+      ImageIndex = 2
+      object pnlSchedule: TPanel
+        Left = 3
+        Top = 3
+        Width = 787
+        Height = 174
+        TabOrder = 0
+        object lblUsername: TLabel
+          Left = 16
+          Top = 16
+          Width = 125
+          Height = 16
+          Caption = 'Student Username:'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object lblMeetingLInk: TLabel
+          Left = 16
+          Top = 72
+          Width = 86
+          Height = 16
+          Caption = 'Meeting Link:'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object lblSubject: TLabel
+          Left = 16
+          Top = 128
+          Width = 54
+          Height = 16
+          Caption = 'Subject:'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object lblSessionDate: TLabel
+          Left = 526
+          Top = 8
+          Width = 89
+          Height = 16
+          Caption = 'Session Date:'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object Label1: TLabel
+          Left = 526
+          Top = 72
+          Width = 87
+          Height = 16
+          Caption = 'Session Time:'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object lblHour: TLabel
+          Left = 519
+          Top = 89
+          Width = 27
+          Height = 13
+          Caption = 'Hour:'
+        end
+        object lblMinute: TLabel
+          Left = 583
+          Top = 91
+          Width = 36
+          Height = 13
+          Caption = 'Minute:'
+        end
+        object edtUsername: TEdit
+          Left = 160
+          Top = 15
+          Width = 121
+          Height = 21
+          TabOrder = 0
+        end
+        object edtMeetingLink: TEdit
+          Left = 160
+          Top = 72
+          Width = 121
+          Height = 21
+          TabOrder = 1
+        end
+        object cmbSubject: TComboBox
+          Left = 157
+          Top = 125
+          Width = 124
+          Height = 24
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+          TabOrder = 2
+        end
+        object DateTimeSessions: TDateTimePicker
+          Left = 470
+          Top = 30
+          Width = 186
+          Height = 21
+          Date = 44605.000000000000000000
+          Format = 'yyyy/MM/dd'
+          Time = 44605.000000000000000000
+          TabOrder = 3
+        end
+        object btnSchedule: TButton
+          Left = 470
+          Top = 136
+          Width = 186
+          Height = 25
+          Caption = 'SCHEDULE SESSION'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+          TabOrder = 4
+          OnClick = btnScheduleClick
+        end
+        object sedHour: TSpinEdit
+          Left = 512
+          Top = 104
+          Width = 42
+          Height = 22
+          MaxValue = 24
+          MinValue = 0
+          TabOrder = 5
+          Value = 10
+        end
+        object sedMinute: TSpinEdit
+          Left = 578
+          Top = 105
+          Width = 48
+          Height = 22
+          MaxValue = 59
+          MinValue = 0
+          TabOrder = 6
+          Value = 0
+        end
       end
     end
   end

@@ -61,6 +61,9 @@
 			<DCCReference Include="Student_u.pas">
 				<Form>frmLearner</Form>
 			</DCCReference>
+			<DCCReference Include="Tutor_u.pas">
+				<Form>frmTutor</Form>
+			</DCCReference>
 			<BuildConfiguration Include="Base">
 				<Key>Base</Key>
 			</BuildConfiguration>

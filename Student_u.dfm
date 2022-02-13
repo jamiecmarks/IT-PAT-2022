@@ -271,7 +271,7 @@ object frmLearner: TfrmLearner
     Top = 254
     Width = 681
     Height = 205
-    ActivePage = TabSheet2
+    ActivePage = TabSheet1
     TabOrder = 0
     object TabSheet2: TTabSheet
       Caption = 'Change details'

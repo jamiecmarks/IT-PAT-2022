@@ -9,7 +9,8 @@ uses
   Queries_u in 'Queries_u.pas' {frmQueries},
   clsTutor_u in 'clsTutor_u.pas',
   clsStudent_U in 'clsStudent_U.pas',
-  Student_u in 'Student_u.pas' {frmLearner};
+  Student_u in 'Student_u.pas' {frmLearner},
+  Tutor_u in 'Tutor_u.pas' {frmTutor};
 
 {$R *.res}
 
@@ -21,5 +22,6 @@ begin
   Application.CreateForm(TfrmDbAdmin, frmDbAdmin);
   Application.CreateForm(TfrmQueries, frmQueries);
   Application.CreateForm(TfrmLearner, frmLearner);
+  Application.CreateForm(TfrmTutor, frmTutor);
   Application.Run;
 end.
