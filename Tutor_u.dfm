@@ -270,7 +270,7 @@ object frmTutor: TfrmTutor
     Top = 250
     Width = 801
     Height = 205
-    ActivePage = TabSheet3
+    ActivePage = TabSheet2
     TabOrder = 0
     object TabSheet2: TTabSheet
       Caption = 'Change details'
