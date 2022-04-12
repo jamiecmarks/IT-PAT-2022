@@ -79,6 +79,8 @@ type
     function IsValidPassword(sPassword: string): boolean;
     function isValidNames(edtName, edtSurname: TEdit): boolean;
     procedure Resourcecentre1Click(Sender: TObject);
+    function IsUniqueUsernameNoMssge(tblUse: TADOTable;
+      sUsername: string): boolean;
   private
     procedure HideAllLearner(bAffect: boolean);
     { Private declarations }
@@ -394,7 +396,7 @@ begin
     tblTutors['ScheduledSessions'] := objTutor.GetNumSched;
     tblTutors['Password'] := sPassword;
     tblTutors.post;
-        Dialogs.MessageDlg('Welcome ' + objTutor.GetFirstname + ' ' +
+    Dialogs.MessageDlg('Welcome ' + objTutor.GetFirstname + ' ' +
         objTutor.GetSurname + '(' + objTutor.GetUsername + ')' +
         '. Enjoy your stay!', mtInformation, [mbOk], 0, mbOk);
     frmMain.Hide;
@@ -610,6 +612,33 @@ begin
     exit;
   end;
 
+end;
+
+function TfrmMain.IsUniqueUsernameNoMssge(tblUse: TADOTable;
+  sUsername: string): boolean;
+begin
+  result := True; // initialising result value
+  // checking if the username is unique according to the db
+  tblUse.First;
+  while not tblUse.eof do
+  begin
+    if lowercase(sUsername) = lowercase(tblUse['Username']) then
+    begin
+      result := False;
+      exit;
+    end;
+    tblUse.Next;
+  end;
+
+  if length(sUsername) < 4 then
+  begin
+    exit;
+  end;
+  if length(sUsername) > 10 then
+  begin
+    result := False;
+    exit;
+  end;
 end;
 
 function TfrmMain.IsValid(tblUse: TADOTable;

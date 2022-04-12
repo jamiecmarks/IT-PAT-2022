@@ -19,8 +19,8 @@ Type
 var
   frmConnect: TForm;
   conTechno: TADOConnection;
-  tblTutors, tblSubjects, tblSessions, tblStudents: TADOTable;
-  dsTutors, dsSubjects, dsSessions, dsStudents: TDataSource;
+  tblTutors,tblSessions, tblStudents: TADOTable;
+  dsTutors, dsSessions, dsStudents: TDataSource;
   qryTutors, qryStudents, qrySessions: TADOQuery;
 
 implementation
@@ -32,7 +32,6 @@ begin
   dbgT.DataSource := dsTutors;
   dbgSe.DataSource := dsSessions;
   dbgSt.DataSource := dsStudents;
-  dbgSub.DataSource := dsSubjects;
 end;
 
 procedure TConnection.ConnectSessions(var dbgSe: TDBGrid);
@@ -46,7 +45,6 @@ begin
    navT.DataSource := dsTutors;
   dbgSe.DataSource := dsSessions;
   navSt.DataSource := dsStudents;
-  navSub.DataSource := dsSubjects;
 end;
 
 procedure TConnection.ConnectTutorAndStudent(var dbgT, dbgSt: TDBGrid);
@@ -80,11 +78,6 @@ begin
   tblSessions.TableName := 'tblSessions';
   tblSessions.open;
 
-  tblSubjects := TADOTable.Create(frmConnect);
-  tblSubjects.Connection := conTechno;
-  tblSubjects.TableName := 'tblSubjects';
-  tblSubjects.open;
-
   dsTutors := TDataSource.Create(frmConnect);
   dsTutors.DataSet := tblTutors;
 
@@ -93,9 +86,6 @@ begin
 
   dsSessions := TDataSource.Create(frmConnect);
   dsSessions.DataSet := tblSessions;
-
-  dsSubjects := TDataSource.Create(frmConnect);
-  dsSubjects.DataSet := tblSubjects;
 
   qryTutors := TADOQuery.Create(frmConnect);
   qryTutors.Connection := conTechno;
